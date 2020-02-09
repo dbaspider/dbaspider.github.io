@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo 系列-2: 安装和配置 | 大风起兮云飞扬</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1、安装Node.js选择一个稳定版本，比如 node-v12.15.0-x64.msi，选项默认，一路Next即可。最后安装好之后，按Win+R打开命令提示符，输入node -v和npm -v，如果出现版本号，那么就安装成功了。 添加国内镜像源，使用阿里的国内镜像进行加速。npm config set registry https:&#x2F;&#x2F;registry.npm.taobao.org 2、安装Gi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo 系列-2: 安装和配置">
+<meta property="og:url" content="https://dbaspider.github.io/2020/02/09/Hexo-%E7%B3%BB%E5%88%97-2-%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="大风起兮云飞扬">
+<meta property="og:description" content="1、安装Node.js选择一个稳定版本，比如 node-v12.15.0-x64.msi，选项默认，一路Next即可。最后安装好之后，按Win+R打开命令提示符，输入node -v和npm -v，如果出现版本号，那么就安装成功了。 添加国内镜像源，使用阿里的国内镜像进行加速。npm config set registry https:&#x2F;&#x2F;registry.npm.taobao.org 2、安装Gi">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2020-02-09T14:47:07.000Z">
+<meta property="article:modified_time" content="2020-02-09T14:49:41.244Z">
+<meta property="article:author" content="dbaspider">
+<meta property="article:tag" content="dbaspider">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="大风起兮云飞扬" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">大风起兮云飞扬</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">进步每一天</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://dbaspider.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Hexo-系列-2-安装和配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/09/Hexo-%E7%B3%BB%E5%88%97-2-%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/" class="article-date">
+  <time datetime="2020-02-09T14:47:07.000Z" itemprop="datePublished">2020-02-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Hexo 系列-2: 安装和配置
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1、安装Node-js"><a href="#1、安装Node-js" class="headerlink" title="1、安装Node.js"></a>1、安装Node.js</h2><p>选择一个稳定版本，比如 node-v12.15.0-x64.msi，选项默认，一路Next即可。<br>最后安装好之后，按Win+R打开命令提示符，输入node -v和npm -v，如果出现版本号，那么就安装成功了。</p>
+<p>添加国内镜像源，使用阿里的国内镜像进行加速。<br>npm config set registry <a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a></p>
+<h2 id="2、安装Git"><a href="#2、安装Git" class="headerlink" title="2、安装Git"></a>2、安装Git</h2><p>安装选项还是全部默认，安装完成后在命令提示符中输入git –version验证是否安装成功（最后一步添加路径时选择Use Git from the Windows Command Prompt）。<br>没有选择这个的话，可以通过Git Bash启动shell运行命令验证。</p>
+<h2 id="3、注册Github账号"><a href="#3、注册Github账号" class="headerlink" title="3、注册Github账号"></a>3、注册Github账号</h2><p>注册过程这个就赘述了，创建一个repository，名字一定要加.github.io后缀，README初始化也要勾上。<br>比如我的名字是 dbaspider.github.io，后续blog地址就是 <a href="https://dbaspider.github.io/。">https://dbaspider.github.io/。</a></p>
+<p>另外，配置好Github提交代码所需的配置，注意配置好ssh key，建议打开本地保存用户和密码开关，<br>这样每次git push/pull代码时就不会弹出对话框再输入了。<br>git config –global credential.helper store</p>
+<h2 id="4、安装Hexo"><a href="#4、安装Hexo" class="headerlink" title="4、安装Hexo"></a>4、安装Hexo</h2><p>使用npm命令安装Hexo，输入：<br>npm install -g hexo-cli </p>
+<p>安装完成后，创建一个本地目录作为blog的本地保存目录（比如 C:\），确认命令行当前工作目录在此目录下，<br>执行下面命令初始化博客：<br>hexo init blog</p>
+<p>按顺序输入以下三条命令，确认hexo blog已经初始化成功：</p>
+<p>(1) 新建一条blob<br>hexo new test_my_site</p>
+<p>(2) 生成blog页面<br>hexo g</p>
+<p>(3) 启动本地hexo http服务<br>hexo s</p>
+<h2 id="5、推送网站到github上"><a href="#5、推送网站到github上" class="headerlink" title="5、推送网站到github上"></a>5、推送网站到github上</h2><p>推送需要先编辑blog目录下的 _config.yml 文件，做一些必须的配置。</p>
+<p>(1) 站点显示和SEO配置，修改成自己的设置内容：<br># Site<br>title: ‘大风起兮云飞扬’<br>subtitle: ‘进步每一天’<br>description: ‘dbaspider home’<br>keywords: dbaspider<br>author: dbaspider<br>language: zh<br>timezone: ‘Asia/Shanghai’</p>
+<p>另外这里的url修改为实际的blog地址：<br># URL<br>## If your site is put in a subdirectory, set url as ‘<a href="http://yoursite.com/child&#39;" target="_blank" rel="noopener">http://yoursite.com/child&#39;</a> and root as ‘/child/‘<br>url: <a href="https://dbaspider.github.io">https://dbaspider.github.io</a></p>
+<p>(2) Github推送设置：<br># Deployment<br>## Docs: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">https://hexo.io/docs/deployment.html</a><br>deploy:<br>  type: ‘git’<br>  repo: <a href="https://github.com/dbaspider/dbaspider.github.io.git" target="_blank" rel="noopener">https://github.com/dbaspider/dbaspider.github.io.git</a><br>  branch: master</p>
+<p>(3) 执行推送<br>先安装Git部署插件，输入命令：<br>npm install hexo-deployer-git –save<br>安装一次即可，后面就不用再安装了。</p>
+<p>推送到Github的仓库上，分别输入三条命令：<br>hexo clean<br>hexo g<br>hexo d</p>
+<p>第三条的 hexo d 就是部署网站命令，d是deploy的缩写。完成后，打开浏览器，在地址栏输入你的放置个人网站的仓库路径，即 <a href="https://dbaspider.github.io">https://dbaspider.github.io</a><br>顺利的话，你的blog就出来了（国内可能有些延迟，如果没有显示出来，可以过几分钟再刷新下即可）。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dbaspider.github.io/2020/02/09/Hexo-%E7%B3%BB%E5%88%97-2-%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/" data-id="ck6f5ag2v0000hgti5arh10t2" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/02/09/Hexo%E7%B3%BB%E5%88%97-1-%E4%BB%8B%E7%BB%8D/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hexo系列-1: 介绍</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/02/09/Hexo-%E7%B3%BB%E5%88%97-2-%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/">Hexo 系列-2: 安装和配置</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/09/Hexo%E7%B3%BB%E5%88%97-1-%E4%BB%8B%E7%BB%8D/">Hexo系列-1: 介绍</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/06/%E8%A7%A3%E5%86%B3git-pull-push%E6%AF%8F%E6%AC%A1%E9%83%BD%E9%9C%80%E8%A6%81%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81%E9%97%AE%E9%A2%98/">解决git pull push每次都需要输入密码问题</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/06/test-my-site/">test_my_site</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/06/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 dbaspider<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
