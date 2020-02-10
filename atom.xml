@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>大风起兮云飞扬</title>
+  
+  <subtitle>进步每一天</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://dbaspider.github.io/"/>
+  <updated>2020-02-09T15:11:17.856Z</updated>
+  <id>https://dbaspider.github.io/</id>
+  
+  <author>
+    <name>dbaspider</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Hexo 系列-3: 发表文章和更换主题</title>
+    <link href="https://dbaspider.github.io/2020/02/09/Hexo-%E7%B3%BB%E5%88%97-3-%E5%8F%91%E8%A1%A8%E6%96%87%E7%AB%A0%E5%92%8C%E6%9B%B4%E6%8D%A2%E4%B8%BB%E9%A2%98/"/>
+    <id>https://dbaspider.github.io/2020/02/09/Hexo-%E7%B3%BB%E5%88%97-3-%E5%8F%91%E8%A1%A8%E6%96%87%E7%AB%A0%E5%92%8C%E6%9B%B4%E6%8D%A2%E4%B8%BB%E9%A2%98/</id>
+    <published>2020-02-09T14:53:25.000Z</published>
+    <updated>2020-02-09T15:11:17.856Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="发表文章"><a href="#发表文章" class="headerlink" title="发表文章"></a>发表文章</h1><p>执行命令:<br>hexo n “文章标题”<br>则会在 C:\blog\source_posts 目录下生成相应的md文件，然后直接编辑即可。</p><p>不熟悉MarkDown语法的可以参考下面入门，还是很简单的：<br><a href="http://xianbai.me/learn-md/index.html" target="_blank" rel="noopener">Markdown 入门参考</a></p><p>推荐一个md可视化编辑器:<br><a href="https://typora.io/" target="_blank" rel="noopener">typora</a></p><p>不过还是建议用文本编辑器（比如Notepad++），写好后用typora打开看下效果，有问题再修改。</p><p>文章写好后，启动hexo本地服务进行预览：<br>hexo s </p><p>确认无误，则执行下面命令发布到github上：<br>hexo d</p><h1 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h1><p>Hexo默认安装了主题landscape，如果想换其他的，可以到 <a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a> 查看有没有满意的。</p><p>主题安装实际就是将其他的主题（一般都是发布在github上）下载下来，解压后放到下面目录下：<br>C:\blog\themes</p><p>然后修改 blog\_config.yml 配置文件中的theme部分：<br># Extensions<br>## Plugins: <a href="https://hexo.io/plugins/" target="_blank" rel="noopener">https://hexo.io/plugins/</a><br>## Themes: <a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a><br>theme: landscape</p><p>每个主题都自己做了扩展，一般还需要再安装其他的node.js插件和独立配置，请参考每个主题的安装配置文档。</p><p>推荐2个主题：<br><a href="http://eternalzttz.com/hexo-next.html" target="_blank" rel="noopener">hexo-next</a></p><p><a href="https://www.imys.net/" target="_blank" rel="noopener">hexo-theme-indigo</a></p><p>后续再介绍下hexo的一些扩展用法。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;发表文章&quot;&gt;&lt;a href=&quot;#发表文章&quot; class=&quot;headerlink&quot; title=&quot;发表文章&quot;&gt;&lt;/a&gt;发表文章&lt;/h1&gt;&lt;p&gt;执行命令:&lt;br&gt;hexo n “文章标题”&lt;br&gt;则会在 C:\blog\source_posts 目录下生成相应的md文
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo 系列-2: 安装和配置</title>
+    <link href="https://dbaspider.github.io/2020/02/09/Hexo-%E7%B3%BB%E5%88%97-2-%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/"/>
+    <id>https://dbaspider.github.io/2020/02/09/Hexo-%E7%B3%BB%E5%88%97-2-%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/</id>
+    <published>2020-02-09T14:47:07.000Z</published>
+    <updated>2020-02-09T14:49:41.244Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="1、安装Node-js"><a href="#1、安装Node-js" class="headerlink" title="1、安装Node.js"></a>1、安装Node.js</h2><p>选择一个稳定版本，比如 node-v12.15.0-x64.msi，选项默认，一路Next即可。<br>最后安装好之后，按Win+R打开命令提示符，输入node -v和npm -v，如果出现版本号，那么就安装成功了。</p><p>添加国内镜像源，使用阿里的国内镜像进行加速。<br>npm config set registry <a href="https://registry.npm.taobao.org" target="_blank" rel="noopener">https://registry.npm.taobao.org</a></p><h2 id="2、安装Git"><a href="#2、安装Git" class="headerlink" title="2、安装Git"></a>2、安装Git</h2><p>安装选项还是全部默认，安装完成后在命令提示符中输入git –version验证是否安装成功（最后一步添加路径时选择Use Git from the Windows Command Prompt）。<br>没有选择这个的话，可以通过Git Bash启动shell运行命令验证。</p><h2 id="3、注册Github账号"><a href="#3、注册Github账号" class="headerlink" title="3、注册Github账号"></a>3、注册Github账号</h2><p>注册过程这个就赘述了，创建一个repository，名字一定要加.github.io后缀，README初始化也要勾上。<br>比如我的名字是 dbaspider.github.io，后续blog地址就是 <a href="https://dbaspider.github.io/。">https://dbaspider.github.io/。</a></p><p>另外，配置好Github提交代码所需的配置，注意配置好ssh key，建议打开本地保存用户和密码开关，<br>这样每次git push/pull代码时就不会弹出对话框再输入了。<br>git config –global credential.helper store</p><h2 id="4、安装Hexo"><a href="#4、安装Hexo" class="headerlink" title="4、安装Hexo"></a>4、安装Hexo</h2><p>使用npm命令安装Hexo，输入：<br>npm install -g hexo-cli </p><p>安装完成后，创建一个本地目录作为blog的本地保存目录（比如 C:\），确认命令行当前工作目录在此目录下，<br>执行下面命令初始化博客：<br>hexo init blog</p><p>按顺序输入以下三条命令，确认hexo blog已经初始化成功：</p><p>(1) 新建一条blob<br>hexo new test_my_site</p><p>(2) 生成blog页面<br>hexo g</p><p>(3) 启动本地hexo http服务<br>hexo s</p><h2 id="5、推送网站到github上"><a href="#5、推送网站到github上" class="headerlink" title="5、推送网站到github上"></a>5、推送网站到github上</h2><p>推送需要先编辑blog目录下的 _config.yml 文件，做一些必须的配置。</p><p>(1) 站点显示和SEO配置，修改成自己的设置内容：<br># Site<br>title: ‘大风起兮云飞扬’<br>subtitle: ‘进步每一天’<br>description: ‘dbaspider home’<br>keywords: dbaspider<br>author: dbaspider<br>language: zh<br>timezone: ‘Asia/Shanghai’</p><p>另外这里的url修改为实际的blog地址：<br># URL<br>## If your site is put in a subdirectory, set url as ‘<a href="http://yoursite.com/child&#39;" target="_blank" rel="noopener">http://yoursite.com/child&#39;</a> and root as ‘/child/‘<br>url: <a href="https://dbaspider.github.io">https://dbaspider.github.io</a></p><p>(2) Github推送设置：<br># Deployment<br>## Docs: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">https://hexo.io/docs/deployment.html</a><br>deploy:<br>  type: ‘git’<br>  repo: <a href="https://github.com/dbaspider/dbaspider.github.io.git" target="_blank" rel="noopener">https://github.com/dbaspider/dbaspider.github.io.git</a><br>  branch: master</p><p>(3) 执行推送<br>先安装Git部署插件，输入命令：<br>npm install hexo-deployer-git –save<br>安装一次即可，后面就不用再安装了。</p><p>推送到Github的仓库上，分别输入三条命令：<br>hexo clean<br>hexo g<br>hexo d</p><p>第三条的 hexo d 就是部署网站命令，d是deploy的缩写。完成后，打开浏览器，在地址栏输入你的放置个人网站的仓库路径，即 <a href="https://dbaspider.github.io">https://dbaspider.github.io</a><br>顺利的话，你的blog就出来了（国内可能有些延迟，如果没有显示出来，可以过几分钟再刷新下即可）。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;1、安装Node-js&quot;&gt;&lt;a href=&quot;#1、安装Node-js&quot; class=&quot;headerlink&quot; title=&quot;1、安装Node.js&quot;&gt;&lt;/a&gt;1、安装Node.js&lt;/h2&gt;&lt;p&gt;选择一个稳定版本，比如 node-v12.15.0-x64.msi，
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo系列-1: 介绍</title>
+    <link href="https://dbaspider.github.io/2020/02/09/Hexo%E7%B3%BB%E5%88%97-1-%E4%BB%8B%E7%BB%8D/"/>
+    <id>https://dbaspider.github.io/2020/02/09/Hexo%E7%B3%BB%E5%88%97-1-%E4%BB%8B%E7%BB%8D/</id>
+    <published>2020-02-08T16:21:46.000Z</published>
+    <updated>2020-02-08T16:25:19.262Z</updated>
+    
+    <content type="html"><![CDATA[<p>Hexo是一个快速、简洁且高效的博客框架，基于Node.js开发。生成的blog页面也是静态的，非常适合于github这种无法后台动态渲染纯静态资源页面的托管网站。具有下面几个特点：</p><h2 id="超快速度"><a href="#超快速度" class="headerlink" title="超快速度"></a>超快速度</h2><p>Node.js 所带来的超快生成速度，让上百个页面在几秒内瞬间完成渲染。</p><h2 id="支持-Markdown"><a href="#支持-Markdown" class="headerlink" title="支持 Markdown"></a>支持 Markdown</h2><p>Hexo 支持 GitHub Flavored Markdown 的所有功能，甚至可以整合 Octopress 的大多数插件。</p><h2 id="一键部署"><a href="#一键部署" class="headerlink" title="一键部署"></a>一键部署</h2><p>只需一条指令即可部署到 GitHub Pages, Heroku 或其他平台。</p><h2 id="插件和可扩展性"><a href="#插件和可扩展性" class="headerlink" title="插件和可扩展性"></a>插件和可扩展性</h2><p>强大的 API 带来无限的可能，与数种模板引擎（EJS，Pug，Nunjucks）和工具（Babel，PostCSS，Less/Sass）轻易集成</p><h2 id="丰富的theme资源"><a href="#丰富的theme资源" class="headerlink" title="丰富的theme资源"></a>丰富的theme资源</h2><p>众多Hexo的使用者和开发者已经创作了几百款主题，必有一款适合你。不满意的话，你可以使用任何兼容的模板引擎创建自己的主题。</p><p>安装准备：<br>1、Node.js:<br><a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">https://nodejs.org/en/download/</a></p><p>2、Git 工具:<br><a href="https://git-scm.com/download/win" target="_blank" rel="noopener">https://git-scm.com/download/win</a></p><p>3、GitHub 注册账号:<br><a href="https://github.com/" target="_blank" rel="noopener">https://github.com/</a></p><p>下一篇介绍安装和配置~</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Hexo是一个快速、简洁且高效的博客框架，基于Node.js开发。生成的blog页面也是静态的，非常适合于github这种无法后台动态渲染纯静态资源页面的托管网站。具有下面几个特点：&lt;/p&gt;
+&lt;h2 id=&quot;超快速度&quot;&gt;&lt;a href=&quot;#超快速度&quot; class=&quot;head
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>解决git pull push每次都需要输入密码问题</title>
+    <link href="https://dbaspider.github.io/2020/02/06/%E8%A7%A3%E5%86%B3git-pull-push%E6%AF%8F%E6%AC%A1%E9%83%BD%E9%9C%80%E8%A6%81%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81%E9%97%AE%E9%A2%98/"/>
+    <id>https://dbaspider.github.io/2020/02/06/%E8%A7%A3%E5%86%B3git-pull-push%E6%AF%8F%E6%AC%A1%E9%83%BD%E9%9C%80%E8%A6%81%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81%E9%97%AE%E9%A2%98/</id>
+    <published>2020-02-06T14:49:33.000Z</published>
+    <updated>2020-02-06T14:54:57.726Z</updated>
+    
+    <content type="html"><![CDATA[<p>如果git clone的下载代码的时候是连接的https://而不是git@git (ssh)的形式，当操作git pull/push到远程的时候，总是提示输入账号和密码才能操作成功，频繁的输入账号和密码会很麻烦。</p><p>解决办法：</p><p>git bash进入你的项目目录，输入：</p><p>git config –global credential.helper store</p><p>然后会在本地生成一个文本，上边记录你的账号和密码。当然这些你可以不用关心。</p><p>然后你使用上述的命令配置好之后，再操作一次git pull，然后它会提示你输入账号密码，这一次之后就不需要再次输入密码了。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;如果git clone的下载代码的时候是连接的https://而不是git@git (ssh)的形式，当操作git pull/push到远程的时候，总是提示输入账号和密码才能操作成功，频繁的输入账号和密码会很麻烦。&lt;/p&gt;
+&lt;p&gt;解决办法：&lt;/p&gt;
+&lt;p&gt;git bash进
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>test_my_site</title>
+    <link href="https://dbaspider.github.io/2020/02/06/test-my-site/"/>
+    <id>https://dbaspider.github.io/2020/02/06/test-my-site/</id>
+    <published>2020-02-06T11:29:21.000Z</published>
+    <updated>2020-02-06T11:29:21.941Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://dbaspider.github.io/2020/02/06/hello-world/"/>
+    <id>https://dbaspider.github.io/2020/02/06/hello-world/</id>
+    <published>2020-02-06T11:23:11.444Z</published>
+    <updated>2020-02-06T11:23:11.444Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+</feed>
