@@ -71,6 +71,57 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Hexo系列-4-站点地图和SEO" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/11/Hexo%E7%B3%BB%E5%88%97-4-%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BE%E5%92%8CSEO/" class="article-date">
+  <time datetime="2020-02-11T14:49:08.000Z" itemprop="datePublished">2020-02-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/11/Hexo%E7%B3%BB%E5%88%97-4-%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BE%E5%92%8CSEO/">Hexo系列-4: 站点地图和SEO</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="站点地图-Site-Map"><a href="#站点地图-Site-Map" class="headerlink" title="站点地图(Site Map)"></a>站点地图(Site Map)</h2><p>Sitemap 简介：<br>Sitemap 可方便网站管理员通知搜索引擎他们网站上有哪些可供抓取的网页。<br>最简单的Sitemap 形式，就是XML 文件，在其中列出网站中的网址以及关于<br>每个网址的其他元数据（上次更新的时间、更改的频率以及相对于网站上其<br>他网址的重要程度为何等），以便搜索引擎可以更加智能地抓取网站。</p>
+<h3 id="1、安装sitemap生成插件："><a href="#1、安装sitemap生成插件：" class="headerlink" title="1、安装sitemap生成插件："></a>1、安装sitemap生成插件：</h3><p>打开命令行，确保当前工作目录是blog，依次执行：<br>npm install hexo-generator-sitemap –save<br>npm install hexo-generator-baidu-sitemap –save</p>
+<h3 id="2、配置插件："><a href="#2、配置插件：" class="headerlink" title="2、配置插件："></a>2、配置插件：</h3><p>修改 blog\_config.yml 配置文件，增加下面配置：</p>
+<p># 自动生成sitemap<br>sitemap:<br>  path: sitemap.xml<br>baidusitemap:<br>  path: baidusitemap.xml</p>
+<h3 id="3、生成站点地图："><a href="#3、生成站点地图：" class="headerlink" title="3、生成站点地图："></a>3、生成站点地图：</h3><p>运行 hexo g 命令，可以发现 public 目录下会生成下面sitemap文件，就表示成功了。</p>
+<p>baidusitemap.xml<br>sitemap.xml</p>
+<p>确认没有问题后，运行 hexo d 部署，就可以将站点地图自动提交到github托管仓库上。</p>
+<h3 id="4、向搜索引擎提交站点地图"><a href="#4、向搜索引擎提交站点地图" class="headerlink" title="4、向搜索引擎提交站点地图"></a>4、向搜索引擎提交站点地图</h3><p>百度使用：<a href="https://dbaspider.github.io/baidusitemap.xml">https://dbaspider.github.io/baidusitemap.xml</a><br><a href="https://ziyuan.baidu.com/linksubmit/index" target="_blank" rel="noopener">百度搜索</a> – baidusitemap.xml</p>
+<p>Google使用：<a href="https://dbaspider.github.io/sitemap.xml">https://dbaspider.github.io/sitemap.xml</a><br><a href="https://www.google.com/webmasters/tools" target="_blank" rel="noopener">Google搜索</a> – sitemap.xml</p>
+<p>访问要提交的搜索引擎站点地图地址，里面会有导引，基本操作就是提交你自己blog的sitemap url。<br>当然，一般为了证明网站是你的，搜索引擎还是让你进行验证，这个根据具体指导操作即可。</p>
+<p>提交后，一般一天后就可以查看你的站点是否被收录了。</p>
+<p>谷歌验证：搜索框输入 site:dbaspider.github.io 查看是否有搜索结果。<br>百度验证：搜索框输入 site:dbaspider.github.io 查看是否有搜索结果。</p>
+<h2 id="配置RSS-简易信息聚合"><a href="#配置RSS-简易信息聚合" class="headerlink" title="配置RSS(简易信息聚合)"></a>配置RSS(简易信息聚合)</h2><p>简易信息聚合（Really Simple Syndication）是一种基于XML标准，在互联网上被广泛采用的内容包装和投递协议。RSS是一种描述和同步网站内容的格式，是使用最广泛的XML应用。RSS搭建了信息迅速传播的一个技术平台，使得每个人都成为潜在的信息提供者。发布一个RSS文件后，这个RSS Feed中包含的信息就能直接被其他站点调用。RSS广泛用于网上新闻频道，blog和wiki，主要的版本有0.91, 1.0, 2.0。使用RSS订阅能更快地获取信息，网站提供RSS输出，有利于让用户获取网站内容的最新更新。网络用户可以在客户端借助于支持RSS的聚合工具软件，在不打开网站内容页面的情况下阅读支持RSS输出的网站内容。</p>
+<h3 id="1、安装插件"><a href="#1、安装插件" class="headerlink" title="1、安装插件:"></a>1、安装插件:</h3><p>进入本地blog目录，输入以下命令：<br>npm install hexo-generator-feed</p>
+<h3 id="2、验证RSS"><a href="#2、验证RSS" class="headerlink" title="2、验证RSS:"></a>2、验证RSS:</h3><p>跟sitemap类型，运行 hexo g 命令，可以发现 public 目录下会生成下面atom.xml文件，就表示成功了。<br>RSS阅读器就可以通过访问 <a href="https://dbaspider.github.io/baidusitemap.xml">https://dbaspider.github.io/baidusitemap.xml</a> 获取rss列表了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dbaspider.github.io/2020/02/11/Hexo%E7%B3%BB%E5%88%97-4-%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BE%E5%92%8CSEO/" data-id="ck6i0c4di0006hwti4pdd7p2q" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Hexo-系列-3-发表文章和更换主题" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/02/09/Hexo-%E7%B3%BB%E5%88%97-3-%E5%8F%91%E8%A1%A8%E6%96%87%E7%AB%A0%E5%92%8C%E6%9B%B4%E6%8D%A2%E4%B8%BB%E9%A2%98/" class="article-date">
@@ -110,7 +161,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dbaspider.github.io/2020/02/09/Hexo-%E7%B3%BB%E5%88%97-3-%E5%8F%91%E8%A1%A8%E6%96%87%E7%AB%A0%E5%92%8C%E6%9B%B4%E6%8D%A2%E4%B8%BB%E9%A2%98/" data-id="ck6gk85oa00008gti96a9gprk" class="article-share-link">Share</a>
+      <a data-url="https://dbaspider.github.io/2020/02/09/Hexo-%E7%B3%BB%E5%88%97-3-%E5%8F%91%E8%A1%A8%E6%96%87%E7%AB%A0%E5%92%8C%E6%9B%B4%E6%8D%A2%E4%B8%BB%E9%A2%98/" data-id="ck6i0c4ck0000hwti3i45hggq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -164,7 +215,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dbaspider.github.io/2020/02/09/Hexo-%E7%B3%BB%E5%88%97-2-%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/" data-id="ck6gk85ol00018gti6v6f63ec" class="article-share-link">Share</a>
+      <a data-url="https://dbaspider.github.io/2020/02/09/Hexo-%E7%B3%BB%E5%88%97-2-%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/" data-id="ck6i0c4cs0001hwtib7vdc02u" class="article-share-link">Share</a>
       
       
     </footer>
@@ -210,7 +261,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dbaspider.github.io/2020/02/09/Hexo%E7%B3%BB%E5%88%97-1-%E4%BB%8B%E7%BB%8D/" data-id="ck6gk85on00028gti9oomhq2j" class="article-share-link">Share</a>
+      <a data-url="https://dbaspider.github.io/2020/02/09/Hexo%E7%B3%BB%E5%88%97-1-%E4%BB%8B%E7%BB%8D/" data-id="ck6i0c4cx0004hwti7skr6tbk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -252,7 +303,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dbaspider.github.io/2020/02/06/%E8%A7%A3%E5%86%B3git-pull-push%E6%AF%8F%E6%AC%A1%E9%83%BD%E9%9C%80%E8%A6%81%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81%E9%97%AE%E9%A2%98/" data-id="ck6gk85pc00058gti3c4g9ix7" class="article-share-link">Share</a>
+      <a data-url="https://dbaspider.github.io/2020/02/06/%E8%A7%A3%E5%86%B3git-pull-push%E6%AF%8F%E6%AC%A1%E9%83%BD%E9%9C%80%E8%A6%81%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81%E9%97%AE%E9%A2%98/" data-id="ck6i0c4cw0003hwti2hlmamyu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -288,7 +339,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dbaspider.github.io/2020/02/06/test-my-site/" data-id="ck6gk85op00038gtihfn56plc" class="article-share-link">Share</a>
+      <a data-url="https://dbaspider.github.io/2020/02/06/test-my-site/" data-id="ck6i0c4cu0002hwti87b550xw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -337,7 +388,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://dbaspider.github.io/2020/02/06/hello-world/" data-id="ck6gk85oq00048gti4idvaf72" class="article-share-link">Share</a>
+      <a data-url="https://dbaspider.github.io/2020/02/06/hello-world/" data-id="ck6i0c4cz0005hwti03n47fy4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -378,6 +429,10 @@
       <ul>
         
           <li>
+            <a href="/2020/02/11/Hexo%E7%B3%BB%E5%88%97-4-%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BE%E5%92%8CSEO/">Hexo系列-4: 站点地图和SEO</a>
+          </li>
+        
+          <li>
             <a href="/2020/02/09/Hexo-%E7%B3%BB%E5%88%97-3-%E5%8F%91%E8%A1%A8%E6%96%87%E7%AB%A0%E5%92%8C%E6%9B%B4%E6%8D%A2%E4%B8%BB%E9%A2%98/">Hexo 系列-3: 发表文章和更换主题</a>
           </li>
         
@@ -391,10 +446,6 @@
         
           <li>
             <a href="/2020/02/06/%E8%A7%A3%E5%86%B3git-pull-push%E6%AF%8F%E6%AC%A1%E9%83%BD%E9%9C%80%E8%A6%81%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81%E9%97%AE%E9%A2%98/">解决git pull push每次都需要输入密码问题</a>
-          </li>
-        
-          <li>
-            <a href="/2020/02/06/test-my-site/">test_my_site</a>
           </li>
         
       </ul>
