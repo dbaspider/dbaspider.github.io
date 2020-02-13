@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dbaspider.github.io/"/>
-  <updated>2020-02-11T15:34:08.852Z</updated>
+  <updated>2020-02-13T15:15:25.250Z</updated>
   <id>https://dbaspider.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>PDF阅读器推荐</title>
+    <link href="https://dbaspider.github.io/2020/02/13/PDF%E9%98%85%E8%AF%BB%E5%99%A8%E6%8E%A8%E8%8D%90/"/>
+    <id>https://dbaspider.github.io/2020/02/13/PDF%E9%98%85%E8%AF%BB%E5%99%A8%E6%8E%A8%E8%8D%90/</id>
+    <published>2020-02-13T13:55:07.000Z</published>
+    <updated>2020-02-13T15:15:25.250Z</updated>
+    
+    <content type="html"><![CDATA[<p>PDF(Portable Document Format，便携式文档格式)，是由Adobe Systems用于与应用程序、操作系统、硬件无关的方式进行文件交换所发展出的文件格式。PDF文件以PostScript语言图象模型为基础，无论在哪种打印机上都可保证精确的颜色和准确的打印效果，即PDF会忠实地再现原稿的每一个字符、颜色以及图象。是当前因特网上最流行的电子书格式，其他的还有epub/mobi等几种。</p><h3 id="Adobe-Reader"><a href="#Adobe-Reader" class="headerlink" title="Adobe Reader"></a>Adobe Reader</h3><p>PDF格式发明者Adobe公司出品的官方阅读器，以前在选择很少的时候基本是作为PC上独裁的存在。<br>最新版本叫Adobe Reader XI / Adobe Reader DC，安装体积较大，现在的新版本安装后要200多MB。<br>建议作为备选，只有在其他阅读器打不开或者有乱码的时候，才考虑使用它。<br><a href="https://get.adobe.com/cn/reader/otherversions/" target="_blank" rel="noopener">Adobe Acrobat Reader DC</a><br><a href="https://get.adobe.com/cn/reader/otherversions/" target="_blank" rel="noopener">https://get.adobe.com/cn/reader/otherversions/</a></p><h3 id="福昕阅读器-Foxit-Reader"><a href="#福昕阅读器-Foxit-Reader" class="headerlink" title="福昕阅读器(Foxit Reader)"></a>福昕阅读器(Foxit Reader)</h3><p>福昕软件出品的一款免费阅读器，体积较小，打开文件快速，兼容支持性也不错。<br><a href="https://www.foxitsoftware.cn/pdf-reader/" target="_blank" rel="noopener">福昕阅读器</a><br><a href="https://www.foxitsoftware.cn/pdf-reader/" target="_blank" rel="noopener">https://www.foxitsoftware.cn/pdf-reader/</a></p><h3 id="迅读PDF大师"><a href="#迅读PDF大师" class="headerlink" title="迅读PDF大师"></a>迅读PDF大师</h3><p>迅读PDF大师是一款超轻巧的PDF阅读器，启动速度极快，占用内存极少；提供多种阅读模式，支持全屏、幻灯片模式；查找和目录功能 使阅读更加精准；软件完全兼容Adobe Reader格式，还同时支持EPUB、MOBI等多种文档格式；提供pdf转换功能，导出word、excel、 ppt等Office文件格式。<br><a href="http://www.xundupdf.com" target="_blank" rel="noopener">迅读PDF大师</a><br><a href="http://www.xundupdf.com" target="_blank" rel="noopener">http://www.xundupdf.com</a></p><h3 id="Sumatra-PDF"><a href="#Sumatra-PDF" class="headerlink" title="Sumatra PDF"></a>Sumatra PDF</h3><p>SumatraPDF，风靡全球的免费PDF阅读器这是一款体积小巧的PDF阅读器，具有效率高速度快的优点，对于大体积的pdf文件支持的也很好。<br>同时SumatraPDF是一款开源的、免费、小巧的pdf阅读器，Sumatra PDF 是Windows平台上一款免费阅读器， 它支持打开 PDF， ePub， MOBI， SPS， DjVu， CHM， CBZ 和 CBR 格式。<br>体积最小，免安装版本就一个exe文件，大小还不到7MB大小，基本阅读功能都有，缺点就是没有批注和高亮等功能。<br><a href="https://www.sumatrapdfreader.org/download-free-pdf-viewer.html" target="_blank" rel="noopener">Sumatra PDF</a><br><a href="https://www.sumatrapdfreader.org/download-free-pdf-viewer.html" target="_blank" rel="noopener">https://www.sumatrapdfreader.org/download-free-pdf-viewer.html</a></p><h3 id="PDF-XChange-Viewer"><a href="#PDF-XChange-Viewer" class="headerlink" title="PDF-XChange Viewer"></a>PDF-XChange Viewer</h3><p>PDF-XChange Viewer，速度秒杀其它 PDF 阅读器，尤其在加载高分辨率扫描文件时，就是快。<br>PDF-XChange Viewer 功能比福昕PDF阅读器更丰富，相比官方的 Adobe Reader 体积小、资源占用非常低。<br>此外其多标签式浏览、转换 PDF 为图像、批量搜索、高级搜索等功能也很便民，还有强大亮眼的批注功能。<br>免费版本不能添加注释，安装后体积约60MB，功能感受上最接近Adobe Reader的阅读器了。<br>专业人士必备，整体表现优秀，实属最强大的第三方PDF阅读器之一。<br><a href="https://www.tracker-software.com/product/pdf-xchange-viewer" target="_blank" rel="noopener">pdf-xchange-viewer</a><br><a href="https://www.tracker-software.com/product/pdf-xchange-viewer" target="_blank" rel="noopener">https://www.tracker-software.com/product/pdf-xchange-viewer</a></p><h3 id="Drawboard-PDF"><a href="#Drawboard-PDF" class="headerlink" title="Drawboard PDF"></a>Drawboard PDF</h3><p>Surface与Drawboard PDF真的是绝配了，尤其在记笔记方面，Drawboard可以充分发挥Surface pen和Surface触屏的功能。<br>Drawboard PDF 可以在官网下载，也可以在Microsoft  store直接搜索下载。分两个版本，基础版免费，高级版付费，20.99镑每年，可以解锁高级功能。Surface预装的是基础版。<br><a href="https://www.drawboard.com/" target="_blank" rel="noopener">Drawboard PDF</a><br><a href="https://www.drawboard.com/" target="_blank" rel="noopener">https://www.drawboard.com/</a></p><h3 id="Xodo"><a href="#Xodo" class="headerlink" title="Xodo"></a>Xodo</h3><p>优点：免费，相比Drawboard的最大优势。UI简洁，批注方便。可通过右键或双指敲击触控板实现控制栏的隐藏和展开，这对16:9的宽屏幕非常实用！（需要Unpin Command Bar）自带护眼模式和夜间模式，以及多种自定义配色方案。对笔记本的触控板和指点杆支持良好，非常平滑地滚动页面。友好的文档管理功能。可以打开Word文档。<br>缺点：暂不支持ctrl+z撤销操作。暂不支持中文。启动速度慢。<br><a href="https://www.xodo.com/" target="_blank" rel="noopener">Xodo</a><br><a href="https://www.xodo.com/" target="_blank" rel="noopener">https://www.xodo.com/</a></p><h3 id="Nitro-PDF"><a href="#Nitro-PDF" class="headerlink" title="Nitro PDF"></a>Nitro PDF</h3><p>一个全功能的PDF文件处理器，它可以浏览、编辑、建立 PDF 文档，制作出来的PDF 文件100% 相容于其他的PDF 浏览器，并且拥有类似 Office 2007 一样的漂亮界面外观，可以完全取代高价的Adobe Acrobat Professional。收费软件，全功能软件，没有提供免费独立的阅读器版本。<br><a href="https://www.gonitro.com/nps/pro/pdf-software" target="_blank" rel="noopener">Nitro PDF</a><br><a href="https://www.gonitro.com/nps/pro/pdf-software" target="_blank" rel="noopener">https://www.gonitro.com/nps/pro/pdf-software</a></p><h3 id="万兴-PDF-PDF-Element"><a href="#万兴-PDF-PDF-Element" class="headerlink" title="万兴 PDF / PDF Element"></a>万兴 PDF / PDF Element</h3><p>是一款专业的PDF编辑工具, 既能阅读PDF，又能编辑PDF。在用过的PDF编辑器中，它的综合表现是最好的。论速度，比Acrobat快得多，比Foxit Phantom快一些，比Nitro PDF快不少。论中文支持，比PDF X-Change Editor好得多。<br>论体积，比Acrobat小得多。论OCR，和ABBYY一样，但是比ABBYY多了编辑功能。将PDF转化为Word的功能大赞。<br>缺点是对高分屏的支持太差，几乎要眼瞎的节奏。如果在Win10当中开启系统增强渲染模式，则无法正常运行。<br>此软件是收费软件，无免费版本。中文名叫[万兴PDF]是A股上市公司万兴科技旗下拳头产品.<br><a href="https://pdf.wondershare.com/" target="_blank" rel="noopener">PDF Element</a><br><a href="https://pdf.wondershare.cn/" target="_blank" rel="noopener">万兴 PDF</a><br><a href="https://pdf.wondershare.cn/" target="_blank" rel="noopener">https://pdf.wondershare.cn/</a></p><h3 id="文电通pdf阅读器-gaaiho-pdf-reader"><a href="#文电通pdf阅读器-gaaiho-pdf-reader" class="headerlink" title="文电通pdf阅读器(gaaiho pdf reader)"></a>文电通pdf阅读器(gaaiho pdf reader)</h3><p>目前在用的pdf阅读器，快速，小巧，秒启动，秒开，支持窗口分割(同时显示同一篇pdf文档的不同部分，可以让我一边读论文正文一边看文后参考文献列表)，批注功能比较方便，缺点是不支持自定义快捷键。科研狗必备~<br><a href="https://store.gaaiho.cn/download/reader.aspx" target="_blank" rel="noopener">Gaaiho pdf reader</a><br><a href="https://store.gaaiho.cn/download/reader.aspx" target="_blank" rel="noopener">https://store.gaaiho.cn/download/reader.aspx</a></p><h2 id="个人推荐"><a href="#个人推荐" class="headerlink" title="个人推荐"></a>个人推荐</h2><h3 id="小白用户"><a href="#小白用户" class="headerlink" title="小白用户"></a>小白用户</h3><p>福昕阅读器(Foxit Reader)<br>迅读PDF大师</p><h3 id="极客"><a href="#极客" class="headerlink" title="极客"></a>极客</h3><p>Sumatra PDF</p><h3 id="科研狗"><a href="#科研狗" class="headerlink" title="科研狗"></a>科研狗</h3><p>PDF-XChange Viewer<br>Xodo<br>文电通pdf</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;PDF(Portable Document Format，便携式文档格式)，是由Adobe Systems用于与应用程序、操作系统、硬件无关的方式进行文件交换所发展出的文件格式。PDF文件以PostScript语言图象模型为基础，无论在哪种打印机上都可保证精确的颜色和准确的
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Hexo系列-4: 站点地图和SEO</title>
