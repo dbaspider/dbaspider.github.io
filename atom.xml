@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dbaspider.github.io/"/>
-  <updated>2020-02-13T15:15:25.250Z</updated>
+  <updated>2020-02-16T15:46:23.768Z</updated>
   <id>https://dbaspider.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Docker系列之1-环境准备</title>
+    <link href="https://dbaspider.github.io/2020/02/16/Docker%E7%B3%BB%E5%88%97%E4%B9%8B1-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/"/>
+    <id>https://dbaspider.github.io/2020/02/16/Docker%E7%B3%BB%E5%88%97%E4%B9%8B1-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/</id>
+    <published>2020-02-16T09:57:17.000Z</published>
+    <updated>2020-02-16T15:46:23.768Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>■ PC主机：Windows 7 64-bit(内存12GB + 硬盘ATA 1GB)</p><p>■ 虚拟机软件：VMware-workstation-full-14.1.3-9474260.exe<br>  下载地址：<a href="https://my.vmware.com/en/web/vmware/info/slug/desktop_end_user_computing/vmware_workstation_pro/14_0" target="_blank" rel="noopener">https://my.vmware.com/en/web/vmware/info/slug/desktop_end_user_computing/vmware_workstation_pro/14_0</a><br>  建议网上搜索其他下载源，VMware官网要注册用户后才能下载，比较麻烦。</p><p>■ Linux使用CentOS 7.5<br>  下载地址 <a href="http://mirrors.huaweicloud.com/repository/centos/7/isos/x86_64/CentOS-7-x86_64-DVD-1804.iso" target="_blank" rel="noopener">http://mirrors.huaweicloud.com/repository/centos/7/isos/x86_64/CentOS-7-x86_64-DVD-1804.iso</a></p><h2 id="虚拟机安装"><a href="#虚拟机安装" class="headerlink" title="虚拟机安装"></a>虚拟机安装</h2><p>1、先安装VMware-workstation;<br>2、再虚拟机安装CentOS 7.5, 配置参考:<br>    ■ 虚拟机网络配置选择NAT模式;<br>    ■ CPU 配置为 2 x 2 = 4 内核;<br>    ■ 硬盘SCSI模式，大小40GB;<br>3、PC主机网络为通过无线宽带路由器上网模式，地址配置为:<br>   IP: 192.168.1.104<br>   网络掩码：255.255.255.0<br>   DHCP：192.168.1.1<br>   默认网关: 192.168.1.1<br>   DNS: 218.2.2.2 / 218.4.4.4</p><h2 id="虚拟机网络配置"><a href="#虚拟机网络配置" class="headerlink" title="虚拟机网络配置"></a>虚拟机网络配置</h2><h3 id="1、主机名修改"><a href="#1、主机名修改" class="headerlink" title="1、主机名修改"></a>1、主机名修改</h3><p>安装完成后请修改IP地址和hostname，方法请参见:<br><a href="https://blog.csdn.net/twingao/article/details/80217938" target="_blank" rel="noopener">CentOS 7 修改IP地址和主机名</a><br><a href="https://blog.csdn.net/twingao/article/details/80217938" target="_blank" rel="noopener">https://blog.csdn.net/twingao/article/details/80217938</a><br>我这里设置主机名为 docker1</p><h3 id="2、网络地址配置"><a href="#2、网络地址配置" class="headerlink" title="2、网络地址配置"></a>2、网络地址配置</h3><p>虚拟机安装的时候选择NAT模式，建议配置虚拟机的ip为固定，参照：<br><a href="https://blog.csdn.net/weixin_33853827/article/details/92279870" target="_blank" rel="noopener">VMware Workstation装CentOS7虚拟机NAT方式上网</a><br><a href="https://blog.csdn.net/weixin_33853827/article/details/92279870" target="_blank" rel="noopener">https://blog.csdn.net/weixin_33853827/article/details/92279870</a></p><p>完成后docker1的配置：<br>■ ifconfig -a<br>    ens33: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500<br>        inet 192.168.110.3  netmask 255.255.255.0  broadcast 192.168.110.255</p><p>■ cat /etc/sysconfig/network-scripts/ifcfg-ens33<br>    TYPE=Ethernet<br>    PROXY_METHOD=none<br>    BROWSER_ONLY=no<br>    BOOTPROTO=none<br>    DEFROUTE=yes<br>    IPV4_FAILURE_FATAL=no<br>    IPV6INIT=yes<br>    IPV6_AUTOCONF=yes<br>    IPV6_DEFROUTE=yes<br>    IPV6_FAILURE_FATAL=no<br>    IPV6_ADDR_GEN_MODE=stable-privacy<br>    NAME=ens33<br>    UUID=650f3a53-7ac2-4ab5-9f06-5440b5a1351d<br>    DEVICE=ens33<br>    ONBOOT=yes<br>    IPADDR0=192.168.110.3<br>    PREFIX0=24<br>    GATEWAY0=192.168.110.2<br>    DNS1=8.8.8.8<br>    DNS2=114.114.114.114<br>    IPV6_PEERDNS=yes<br>    IPV6_PEERROUTES=yes</p><h2 id="浏览器Chrome安装"><a href="#浏览器Chrome安装" class="headerlink" title="浏览器Chrome安装"></a>浏览器Chrome安装</h2><p>Centos自带浏览器是Firefox，不太好用，建议安装Chrome。<br>这里安装Chrome浏览器是为了在线查资料方便copy/paste，不用在windows和虚拟机之间来回切换了。</p><h3 id="方法1：在线安装"><a href="#方法1：在线安装" class="headerlink" title="方法1：在线安装"></a>方法1：在线安装</h3><p>使用下面的命令，在root用户下就可以安装最新的 Google Chrome:<br>yum install <a href="https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm" target="_blank" rel="noopener">https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm</a></p><h3 id="方法2：离线安装"><a href="#方法2：离线安装" class="headerlink" title="方法2：离线安装"></a>方法2：离线安装</h3><p>wget <a href="https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm" target="_blank" rel="noopener">https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm</a><br>yum localinstall google-chrome-stable_current_x86_64.rpm</p><h3 id="启动浏览器"><a href="#启动浏览器" class="headerlink" title="启动浏览器"></a>启动浏览器</h3><p>安装完毕，在工具栏菜单 Applications -&gt; Internet 下面就可以看到Google Chrome了。<br>点击启动，会发现Chrome启动不成功（非root用户可以），在shell窗口执行下，可以看到下面错误:<br>cd opt/google/chrome<br>./google-chrome<br>[5280:5280:0217/004229.243603:ERROR:zygote_host_impl_linux.cc(89)] Running as root without –no-sandbox is not supported. See <a href="https://crbug.com/638180" target="_blank" rel="noopener">https://crbug.com/638180</a>.</p><p>需要修改下Chrome的启动脚本 google-chrome：<br>最后一行的后面加上 –no-sandbox参数即可：<br># Note: exec -a below is a bashism.<br>exec -a “$0” “$HERE/chrome” “$@” –no-sandbox</p><p>修改完毕，也可以通过shell窗口下面命令启动Chrome：<br>[root@docker1 chrome]# google-chrome &amp;<br>[1] 5439<br>[root@docker1 chrome]# Fontconfig warning: “/etc/fonts/fonts.conf”, line 86: unknown element “blank”<br>[5439:5439:0217/004630.373013:ERROR:edid_parser.cc(102)] Too short EDID data: manufacturer id<br>[5473:5473:0217/004631.873054:ERROR:viz_main_impl.cc(161)] Exiting GPU process due to errors during initialization<br>这个Fontconfig warning不必理会，不影响使用。</p><p>至此环境准备完成了，后面介绍docker的安装。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;环境配置&quot;&gt;&lt;a href=&quot;#环境配置&quot; class=&quot;headerlink&quot; title=&quot;环境配置&quot;&gt;&lt;/a&gt;环境配置&lt;/h2&gt;&lt;p&gt;■ PC主机：Windows 7 64-bit(内存12GB + 硬盘ATA 1GB)&lt;/p&gt;
+&lt;p&gt;■ 虚拟机软件：VMw
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>PDF阅读器推荐</title>

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Docker系列之1-环境准备 | 大风起兮云飞扬</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="环境配置■ PC主机：Windows 7 64-bit(内存12GB + 硬盘ATA 1GB) ■ 虚拟机软件：VMware-workstation-full-14.1.3-9474260.exe  下载地址：https:&#x2F;&#x2F;my.vmware.com&#x2F;en&#x2F;web&#x2F;vmware&#x2F;info&#x2F;slug&#x2F;desktop_end_user_computing&#x2F;vmware_workstation_pro">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker系列之1-环境准备">
+<meta property="og:url" content="https://dbaspider.github.io/2020/02/16/Docker%E7%B3%BB%E5%88%97%E4%B9%8B1-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/index.html">
+<meta property="og:site_name" content="大风起兮云飞扬">
+<meta property="og:description" content="环境配置■ PC主机：Windows 7 64-bit(内存12GB + 硬盘ATA 1GB) ■ 虚拟机软件：VMware-workstation-full-14.1.3-9474260.exe  下载地址：https:&#x2F;&#x2F;my.vmware.com&#x2F;en&#x2F;web&#x2F;vmware&#x2F;info&#x2F;slug&#x2F;desktop_end_user_computing&#x2F;vmware_workstation_pro">
+<meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2020-02-16T09:57:17.000Z">
+<meta property="article:modified_time" content="2020-02-16T15:46:23.768Z">
+<meta property="article:author" content="dbaspider">
+<meta property="article:tag" content="dbaspider">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="大风起兮云飞扬" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">大风起兮云飞扬</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">进步每一天</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://dbaspider.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Docker系列之1-环境准备" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/16/Docker%E7%B3%BB%E5%88%97%E4%B9%8B1-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/" class="article-date">
+  <time datetime="2020-02-16T09:57:17.000Z" itemprop="datePublished">2020-02-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Docker系列之1-环境准备
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h2><p>■ PC主机：Windows 7 64-bit(内存12GB + 硬盘ATA 1GB)</p>
+<p>■ 虚拟机软件：VMware-workstation-full-14.1.3-9474260.exe<br>  下载地址：<a href="https://my.vmware.com/en/web/vmware/info/slug/desktop_end_user_computing/vmware_workstation_pro/14_0" target="_blank" rel="noopener">https://my.vmware.com/en/web/vmware/info/slug/desktop_end_user_computing/vmware_workstation_pro/14_0</a><br>  建议网上搜索其他下载源，VMware官网要注册用户后才能下载，比较麻烦。</p>
+<p>■ Linux使用CentOS 7.5<br>  下载地址 <a href="http://mirrors.huaweicloud.com/repository/centos/7/isos/x86_64/CentOS-7-x86_64-DVD-1804.iso" target="_blank" rel="noopener">http://mirrors.huaweicloud.com/repository/centos/7/isos/x86_64/CentOS-7-x86_64-DVD-1804.iso</a></p>
+<h2 id="虚拟机安装"><a href="#虚拟机安装" class="headerlink" title="虚拟机安装"></a>虚拟机安装</h2><p>1、先安装VMware-workstation;<br>2、再虚拟机安装CentOS 7.5, 配置参考:<br>    ■ 虚拟机网络配置选择NAT模式;<br>    ■ CPU 配置为 2 x 2 = 4 内核;<br>    ■ 硬盘SCSI模式，大小40GB;<br>3、PC主机网络为通过无线宽带路由器上网模式，地址配置为:<br>   IP: 192.168.1.104<br>   网络掩码：255.255.255.0<br>   DHCP：192.168.1.1<br>   默认网关: 192.168.1.1<br>   DNS: 218.2.2.2 / 218.4.4.4</p>
+<h2 id="虚拟机网络配置"><a href="#虚拟机网络配置" class="headerlink" title="虚拟机网络配置"></a>虚拟机网络配置</h2><h3 id="1、主机名修改"><a href="#1、主机名修改" class="headerlink" title="1、主机名修改"></a>1、主机名修改</h3><p>安装完成后请修改IP地址和hostname，方法请参见:<br><a href="https://blog.csdn.net/twingao/article/details/80217938" target="_blank" rel="noopener">CentOS 7 修改IP地址和主机名</a><br><a href="https://blog.csdn.net/twingao/article/details/80217938" target="_blank" rel="noopener">https://blog.csdn.net/twingao/article/details/80217938</a><br>我这里设置主机名为 docker1</p>
+<h3 id="2、网络地址配置"><a href="#2、网络地址配置" class="headerlink" title="2、网络地址配置"></a>2、网络地址配置</h3><p>虚拟机安装的时候选择NAT模式，建议配置虚拟机的ip为固定，参照：<br><a href="https://blog.csdn.net/weixin_33853827/article/details/92279870" target="_blank" rel="noopener">VMware Workstation装CentOS7虚拟机NAT方式上网</a><br><a href="https://blog.csdn.net/weixin_33853827/article/details/92279870" target="_blank" rel="noopener">https://blog.csdn.net/weixin_33853827/article/details/92279870</a></p>
+<p>完成后docker1的配置：<br>■ ifconfig -a<br>    ens33: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500<br>        inet 192.168.110.3  netmask 255.255.255.0  broadcast 192.168.110.255</p>
+<p>■ cat /etc/sysconfig/network-scripts/ifcfg-ens33<br>    TYPE=Ethernet<br>    PROXY_METHOD=none<br>    BROWSER_ONLY=no<br>    BOOTPROTO=none<br>    DEFROUTE=yes<br>    IPV4_FAILURE_FATAL=no<br>    IPV6INIT=yes<br>    IPV6_AUTOCONF=yes<br>    IPV6_DEFROUTE=yes<br>    IPV6_FAILURE_FATAL=no<br>    IPV6_ADDR_GEN_MODE=stable-privacy<br>    NAME=ens33<br>    UUID=650f3a53-7ac2-4ab5-9f06-5440b5a1351d<br>    DEVICE=ens33<br>    ONBOOT=yes<br>    IPADDR0=192.168.110.3<br>    PREFIX0=24<br>    GATEWAY0=192.168.110.2<br>    DNS1=8.8.8.8<br>    DNS2=114.114.114.114<br>    IPV6_PEERDNS=yes<br>    IPV6_PEERROUTES=yes</p>
+<h2 id="浏览器Chrome安装"><a href="#浏览器Chrome安装" class="headerlink" title="浏览器Chrome安装"></a>浏览器Chrome安装</h2><p>Centos自带浏览器是Firefox，不太好用，建议安装Chrome。<br>这里安装Chrome浏览器是为了在线查资料方便copy/paste，不用在windows和虚拟机之间来回切换了。</p>
+<h3 id="方法1：在线安装"><a href="#方法1：在线安装" class="headerlink" title="方法1：在线安装"></a>方法1：在线安装</h3><p>使用下面的命令，在root用户下就可以安装最新的 Google Chrome:<br>yum install <a href="https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm" target="_blank" rel="noopener">https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm</a></p>
+<h3 id="方法2：离线安装"><a href="#方法2：离线安装" class="headerlink" title="方法2：离线安装"></a>方法2：离线安装</h3><p>wget <a href="https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm" target="_blank" rel="noopener">https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm</a><br>yum localinstall google-chrome-stable_current_x86_64.rpm</p>
+<h3 id="启动浏览器"><a href="#启动浏览器" class="headerlink" title="启动浏览器"></a>启动浏览器</h3><p>安装完毕，在工具栏菜单 Applications -&gt; Internet 下面就可以看到Google Chrome了。<br>点击启动，会发现Chrome启动不成功（非root用户可以），在shell窗口执行下，可以看到下面错误:<br>cd opt/google/chrome<br>./google-chrome<br>[5280:5280:0217/004229.243603:ERROR:zygote_host_impl_linux.cc(89)] Running as root without –no-sandbox is not supported. See <a href="https://crbug.com/638180" target="_blank" rel="noopener">https://crbug.com/638180</a>.</p>
+<p>需要修改下Chrome的启动脚本 google-chrome：<br>最后一行的后面加上 –no-sandbox参数即可：<br># Note: exec -a below is a bashism.<br>exec -a “$0” “$HERE/chrome” “$@” –no-sandbox</p>
+<p>修改完毕，也可以通过shell窗口下面命令启动Chrome：<br>[root@docker1 chrome]# google-chrome &amp;<br>[1] 5439<br>[root@docker1 chrome]# Fontconfig warning: “/etc/fonts/fonts.conf”, line 86: unknown element “blank”<br>[5439:5439:0217/004630.373013:ERROR:edid_parser.cc(102)] Too short EDID data: manufacturer id<br>[5473:5473:0217/004631.873054:ERROR:viz_main_impl.cc(161)] Exiting GPU process due to errors during initialization<br>这个Fontconfig warning不必理会，不影响使用。</p>
+<p>至此环境准备完成了，后面介绍docker的安装。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dbaspider.github.io/2020/02/16/Docker%E7%B3%BB%E5%88%97%E4%B9%8B1-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/" data-id="ck6p7ayhx00004oti1k1fhjev" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2020/02/13/PDF%E9%98%85%E8%AF%BB%E5%99%A8%E6%8E%A8%E8%8D%90/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">PDF阅读器推荐</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/02/16/Docker%E7%B3%BB%E5%88%97%E4%B9%8B1-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/">Docker系列之1-环境准备</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/13/PDF%E9%98%85%E8%AF%BB%E5%99%A8%E6%8E%A8%E8%8D%90/">PDF阅读器推荐</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/11/Hexo%E7%B3%BB%E5%88%97-4-%E7%AB%99%E7%82%B9%E5%9C%B0%E5%9B%BE%E5%92%8CSEO/">Hexo系列-4: 站点地图和SEO</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/09/Hexo-%E7%B3%BB%E5%88%97-3-%E5%8F%91%E8%A1%A8%E6%96%87%E7%AB%A0%E5%92%8C%E6%9B%B4%E6%8D%A2%E4%B8%BB%E9%A2%98/">Hexo 系列-3: 发表文章和更换主题</a>
+          </li>
+        
+          <li>
+            <a href="/2020/02/09/Hexo-%E7%B3%BB%E5%88%97-2-%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE/">Hexo 系列-2: 安装和配置</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 dbaspider<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
