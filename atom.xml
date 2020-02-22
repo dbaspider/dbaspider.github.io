@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dbaspider.github.io/"/>
-  <updated>2020-02-20T15:40:44.403Z</updated>
+  <updated>2020-02-22T15:48:21.800Z</updated>
   <id>https://dbaspider.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Docker系列之3-常用命令</title>
+    <link href="https://dbaspider.github.io/2020/02/22/Docker%E7%B3%BB%E5%88%97%E4%B9%8B3-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
+    <id>https://dbaspider.github.io/2020/02/22/Docker%E7%B3%BB%E5%88%97%E4%B9%8B3-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</id>
+    <published>2020-02-22T15:09:22.000Z</published>
+    <updated>2020-02-22T15:48:21.800Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="常用-Docker-命令列表"><a href="#常用-Docker-命令列表" class="headerlink" title="常用 Docker 命令列表"></a>常用 Docker 命令列表</h2><p>目前，Docker 共有 13 个管理命令和 41 个通用命令，以下是常用 Docker 命令列表：<br>docker help     — 列出 Docker 可用命令；<br>docker attach     — 将本地输入、输出、错误流附加到正在运行的容器；<br>docker commit     — 从当前更改的容器状态创建新镜像；<br>docker exec     — 在活动或正在运行的容器中运行命令；<br>docker history     — 显示镜像历史记录；<br>docker info     — 显示系统范围信息；<br>docker inspect     — 查找有关 docker 容器和镜像的系统级信息；<br>docker login     — 登录到本地注册表或 Docker Hub；<br>docker pull     — 从本地注册表或 Docker Hub 中提取镜像或存储库；<br>docker ps         — 列出容器的各种属性；<br>docker restart     — 停止并启动容器；<br>docker rm         — 移除容器；<br>docker rmi         — 删除镜像；<br>docker run         — 在隔离容器中运行命令；<br>docker search     — 在 Docker Hub 中搜索镜像；<br>docker start     — 启动已停止的容器；<br>docker stop     — 停止运行容器；<br>docker version     — 提供 docker 版本信息。</p><h2 id="查看-Docker-版本和系统信息"><a href="#查看-Docker-版本和系统信息" class="headerlink" title="查看 Docker 版本和系统信息"></a>查看 Docker 版本和系统信息</h2><p>无论是在本地还是云端，我们都需要检查 Docker 版本和系统信息，可以使用以下命令找到 Docker 版本:<br>$ docker version</p><p>该命令将显示部分设备信息，比如服务器版本、存储驱动程序、内核版本、操作系统、总内存等。当尝试为当前 Docker 安装启动新资源或尝试找出系统级资源分配问题时，这些信息非常有用，这也是检查运行、停止容器数量及下载镜像数量的快速方法。<br>$ docker info</p><h2 id="搜索和下载-Docker-镜像"><a href="#搜索和下载-Docker-镜像" class="headerlink" title="搜索和下载 Docker 镜像"></a>搜索和下载 Docker 镜像</h2><p>可以使用 docker search 命令在 Docker Hub 搜索已有镜像：<br>$ docker search ubuntu</p><p>以上对 ubuntu 的搜索显示可用镜像、描述和官方状态等信息。如果要下载 ubuntu 镜像，可以使用 docker pull 命令：<br>$ docker pull ubuntu<br>$ docker pull nginx</p><p>如果寻找 Ubuntu 16.04 版本，可使用 16.04 标签下载特定版本：<br>$ docker pull ubuntu:16.04</p><h2 id="查看-Docker-镜像"><a href="#查看-Docker-镜像" class="headerlink" title="查看 Docker 镜像"></a>查看 Docker 镜像</h2><p>使用 docker info 命令查找拥有镜像数量：<br>$ docker info<br>Containers: 0<br>Running: 0<br>Paused: 0<br>Stopped: 0<br>Images: 1<br>…</p><p>docker images 命令可详细列出拥有镜像：<br>$ docker images<br>REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE<br>ubuntu              16.04               5e8b97a2a082        2 weeks ago         114MB<br>ubuntu              latest              113a43faa138        2 weeks ago         81.2MB<br>nginx               latest              cd5239a0906a        2 weeks ago         109MB</p><h2 id="运行镜像的-Docker-容器"><a href="#运行镜像的-Docker-容器" class="headerlink" title="运行镜像的 Docker 容器"></a>运行镜像的 Docker 容器</h2><p>假设想在 docker 上运行 NGINX 服务器，可运行以下命令：<br>$ docker run -p 8080:80 nginx</p><p>用 run 命令从 Docker Hub 提取 nginx 映像创建 NGINX 容器。 -p 8080:80 会告诉 Docker 将 localhost 端口 8080 映射到 Docker 容器端口 80，应该能够从 http:// localhost:8080 访问 NGINX 服务器。</p><p>NGINX 容器已附加到命令行。如果退出命令行，容器将会停止，可使用 detach（’-d’）启动 NGINX 容器，这样即使退出命令行也可继续运行。<br>$ docker run -p 8080:80 -d nginx<br>以上命令将以分离模式启动容器并返回命令行。</p><p>也可在容器创建过程中为容器命名。创建一个名为 my_nginx 的 NGINX 容器：<br>$ docker run –name my_nginx -p 8888:80 -d nginx</p><h2 id="使用-docker-ps-命令列出-Docker-容器"><a href="#使用-docker-ps-命令列出-Docker-容器" class="headerlink" title="使用 docker ps 命令列出 Docker 容器"></a>使用 docker ps 命令列出 Docker 容器</h2><p>docker ps 命令允许查找正在运行的所有容器：<br>$ docker ps</p><p>要显示暂停或已停止的容器，需要加 -a 选项：<br>$ docker ps -a</p><h2 id="启动，停止，重启和杀死容器"><a href="#启动，停止，重启和杀死容器" class="headerlink" title="启动，停止，重启和杀死容器"></a>启动，停止，重启和杀死容器</h2><p>假设要停止’my_nginx’容器，可使用 CONTAINER ID 或 NAME。<br>$ docker stop my_nginx</p><p>如果’my_nginx’容器处于退出状态。可使用 docker start 再次启动容器：<br>$ docker start my_nginx</p><p>如果由于某些问题而需重启容器，则可使用 restart 命令，这比单独停止和启动容器速度更快：<br>$ docker restart my_nginx</p><p>可以像进程一样终止 docker 容器，比如终止 my_nginx 容器：<br>$ docker kill my_nginx</p><h2 id="Docker-Exec-Bash-和-Docker-SSH"><a href="#Docker-Exec-Bash-和-Docker-SSH" class="headerlink" title="Docker Exec Bash 和 Docker SSH"></a>Docker Exec Bash 和 Docker SSH</h2><p>如果需要与 shell 进行交互以创建服务或解决问题，可以使用 docker exec 命令创建交互式 shell。比如，用 bash shell 从 ubuntu 映像启动一个容器：<br>$ docker run –name my_ubuntu -it ubuntu:latest bash<br>root@a19c770b8621:/#</p><p>root @haracle＃表示位于 Docker 容器的 bash shell 中，可以运行 shell 命令：<br>root@a19c770b8621:/# ls<br>bin boot dev etc home lib lib64 media mnt opt proc root run sbin srv sys tmp usr var<br>root@a19c770b8621:/# pwd<br>/</p><p>如果 my_ubuntu 正在运行。假设想将 Docker ssh 放入’my_ubuntu’容器中，可以使用 docker exec bash：<br>$ docker exec -it my_ubuntu bash<br>root@a19c770b8621:/#<br>使用 docker exec 向容器发出命令。例如，可以直接用命令提示符在 my_ubuntu 容器上运行 ls 命令：<br>$ docker exec -it my_ubuntu ls<br>bin dev home lib64 mnt proc run srv tmp var<br>boot etc lib media opt root sbin sys usr</p><h2 id="以分离模式启动容器并使用-docker-attach"><a href="#以分离模式启动容器并使用-docker-attach" class="headerlink" title="以分离模式启动容器并使用 docker attach"></a>以分离模式启动容器并使用 docker attach</h2><p>以上示例用附加模式启动 ubuntu 容器，我们也可在分离模式下启动：<br>$ docker run -it -d –name my_ubuntu_2 ubuntu:latest bash<br>75b28b7208359137b3e1dc2843387918e28b4c6c4860ef0cdeac79c205f5cbc4<br>验证容器是否正在运行：<br>$ docker ps<br>CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                  NAMES<br>75b28b720835        ubuntu:latest       “bash”                   3 minutes ago       Up 3 minutes </p><p>使用 docker attach 命令获取 docker exec bash-like 效果：<br>$ docker attach my_ubuntu_2<br>root@75b28b720835:/#</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;常用-Docker-命令列表&quot;&gt;&lt;a href=&quot;#常用-Docker-命令列表&quot; class=&quot;headerlink&quot; title=&quot;常用 Docker 命令列表&quot;&gt;&lt;/a&gt;常用 Docker 命令列表&lt;/h2&gt;&lt;p&gt;目前，Docker 共有 13 个管理命令和
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Docker系列之2-安装</title>
