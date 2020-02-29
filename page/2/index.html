@@ -71,6 +71,48 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-解决git-pull-push每次都需要输入密码问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/06/%E8%A7%A3%E5%86%B3git-pull-push%E6%AF%8F%E6%AC%A1%E9%83%BD%E9%9C%80%E8%A6%81%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2020-02-06T14:49:33.000Z" itemprop="datePublished">2020-02-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/06/%E8%A7%A3%E5%86%B3git-pull-push%E6%AF%8F%E6%AC%A1%E9%83%BD%E9%9C%80%E8%A6%81%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81%E9%97%AE%E9%A2%98/">解决git pull push每次都需要输入密码问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>如果git clone的下载代码的时候是连接的https://而不是git@git (ssh)的形式，当操作git pull/push到远程的时候，总是提示输入账号和密码才能操作成功，频繁的输入账号和密码会很麻烦。</p>
+<p>解决办法：</p>
+<p>git bash进入你的项目目录，输入：</p>
+<p>git config –global credential.helper store</p>
+<p>然后会在本地生成一个文本，上边记录你的账号和密码。当然这些你可以不用关心。</p>
+<p>然后你使用上述的命令配置好之后，再操作一次git pull，然后它会提示你输入账号密码，这一次之后就不需要再次输入密码了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dbaspider.github.io/2020/02/06/%E8%A7%A3%E5%86%B3git-pull-push%E6%AF%8F%E6%AC%A1%E9%83%BD%E9%9C%80%E8%A6%81%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81%E9%97%AE%E9%A2%98/" data-id="ck6uwy6ze000a8wti2w3qalck" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-test-my-site" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/02/06/test-my-site/" class="article-date">
@@ -192,6 +234,10 @@
       <ul>
         
           <li>
+            <a href="/2020/02/29/%E5%BF%85%E9%A1%BB%E4%BA%86%E8%A7%A3%E7%9A%84%E4%BA%94%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9F%BA%E7%A1%80%E9%97%AE%E9%A2%98/">必须了解的五个服务器基础问题</a>
+          </li>
+        
+          <li>
             <a href="/2020/02/22/Docker%E7%B3%BB%E5%88%97%E4%B9%8B3-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">Docker系列之3-常用命令</a>
           </li>
         
@@ -205,10 +251,6 @@
         
           <li>
             <a href="/2020/02/16/Docker%E7%B3%BB%E5%88%97%E4%B9%8B1-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/">Docker系列之1-环境准备</a>
-          </li>
-        
-          <li>
-            <a href="/2020/02/13/PDF%E9%98%85%E8%AF%BB%E5%99%A8%E6%8E%A8%E8%8D%90/">PDF阅读器推荐</a>
           </li>
         
       </ul>
