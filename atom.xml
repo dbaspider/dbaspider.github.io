@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dbaspider.github.io/"/>
-  <updated>2021-04-04T14:55:38.512Z</updated>
+  <updated>2021-04-04T15:48:00.297Z</updated>
   <id>https://dbaspider.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>华为手机怎么解锁和ROOT</title>
+    <link href="https://dbaspider.github.io/2021/04/04/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA%E6%80%8E%E4%B9%88%E8%A7%A3%E9%94%81%E5%92%8CROOT/"/>
+    <id>https://dbaspider.github.io/2021/04/04/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA%E6%80%8E%E4%B9%88%E8%A7%A3%E9%94%81%E5%92%8CROOT/</id>
+    <published>2021-04-04T15:00:14.000Z</published>
+    <updated>2021-04-04T15:48:00.297Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="为何要root"><a href="#为何要root" class="headerlink" title="为何要root"></a>为何要root</h1><p>一般想把手机root的不外乎下面3种用户：<br>1、搞机爱好者，喜欢折腾；<br>2、app开发者，有了root权限更方便开发和调试app；实际没有root，一般的开发和调试也没问题，只是有时候想查看下app里面的数据或者获取日志不太方便而已；<br>3、逆向或安全工作者，这个就不用说了。</p><h1 id="查看机型是否能root"><a href="#查看机型是否能root" class="headerlink" title="查看机型是否能root"></a>查看机型是否能root</h1><p>首先，想root必须先获取手机的BL解锁码。但不是任何一步华为手机都能获取到解锁码(华为内部手机开发部门开发用的手机一般都是root过的，这个外部拿不到)。<br>因为华为公司已于2018年5月24日后对新上市产品停止解锁码服务，一般来说，如果你的手机是2018年5月24日前上市的，可以到T宝上找商家远程获取到解锁码。<br>具体可把手机机型提供给对方，询问是否可以。像 荣耀 3c / 3x / 4x / 5c / 6 / 7 / 8 / 9 / 10 / 荣耀V10，mate 7 / 8 / 9 / mate 10 / mate 10 pro，p 10 / p20 等等，<br>这些机型都是可以的。具体支持机型可以这里查询：<a href="http://www.7to.cn/model.html" target="_blank" rel="noopener">http://www.7to.cn/model.html</a></p><h1 id="获取bootloader解锁码"><a href="#获取bootloader解锁码" class="headerlink" title="获取bootloader解锁码"></a>获取bootloader解锁码</h1><p>这个就不多说了，现在只能花钱到T宝上找商家远程获取到解锁码，一般30~50不等。</p><h1 id="刷入TWRP获取root权限"><a href="#刷入TWRP获取root权限" class="headerlink" title="刷入TWRP获取root权限"></a>刷入TWRP获取root权限</h1><p>如果T宝上能提供解锁+root一条龙服务最好，现在一般只提供解锁服务。解锁后就可以刷入开了root权限的包了。<br>网上各种刷root教程和包，但基本没有可用的，或者跟自己手机版本对不上。<br>踩了很多坑，发现<a href="http://www.7to.cn/" target="_blank" rel="noopener">奇兔一键刷机 http://www.7to.cn/</a>，很不错，建议花钱买方便，10~15块钱，一键搞定。</p><h1 id="解除root恢复到正常ROM"><a href="#解除root恢复到正常ROM" class="headerlink" title="解除root恢复到正常ROM"></a>解除root恢复到正常ROM</h1><p>使用华为手机的eRecovery来恢复系统至官方版本。eRecovery适用场景：手机不能开机或系统不稳定可以使用eRecovery修复系统。</p><h2 id="前提条件："><a href="#前提条件：" class="headerlink" title="前提条件："></a>前提条件：</h2><p>1、有可连接的WLAN热点(建议连接家庭WLAN网络，尽量不要使用公共场所WLAN网络，确保网络下载速度顺畅）。<br>2、手机电池电量大于30%</p><h2 id="操作步骤："><a href="#操作步骤：" class="headerlink" title="操作步骤："></a>操作步骤：</h2><ol><li>将手机关机后，且USB在连接电脑的状态下，长按【音量上键】+【电源键】15秒左右，手机会自动重启进入华为系统恢复(eRecovery)模式。</li><li>在eRecovery主界面点击”下载最新版本并恢复”。</li><li>在下载界面点击”下载并恢复”，系统将启动WLAN系统，并扫描可用热点。</li><li>选择可用WLAN热点并输入密码，则开始连接热点。</li><li>系统将自动获取安装包信息并自动下载，无需其他操作。这个过程需要一定时间，请耐心等待。</li><li>下载完成后系统自动进行升级安装，升级成功后倒计时自动重启进入主系统</li></ol><h2 id="说明："><a href="#说明：" class="headerlink" title="说明："></a>说明：</h2><p>出厂版本为EMUI 4.0及以上机型支持eRecovery。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;为何要root&quot;&gt;&lt;a href=&quot;#为何要root&quot; class=&quot;headerlink&quot; title=&quot;为何要root&quot;&gt;&lt;/a&gt;为何要root&lt;/h1&gt;&lt;p&gt;一般想把手机root的不外乎下面3种用户：&lt;br&gt;1、搞机爱好者，喜欢折腾；&lt;br&gt;2、app开发者
+      
+    
+    </summary>
+    
+    
+    
+      <category term="华为手机 解锁 ROOT BOOTLOADER UNLOCK TWRP" scheme="https://dbaspider.github.io/tags/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA-%E8%A7%A3%E9%94%81-ROOT-BOOTLOADER-UNLOCK-TWRP/"/>
+    
+  </entry>
   
   <entry>
     <title>华为手机禁用系统更新的办法</title>
