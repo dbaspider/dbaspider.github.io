@@ -151,7 +151,7 @@
       
         <h1 id="目的说明"><a href="#目的说明" class="headerlink" title="目的说明"></a>目的说明</h1><p>有时候不想更新到新版本，但系统老是提示自动更新，小红点冒出来看见心烦。<br>尤其是一些较早的手机，比如荣耀10，因为cpu是麒麟970，运行emui 9.0/9.1很流畅，<br>但是升级到emui 10.0，那叫一个惨，所以这个时候就可以把系统更新禁用掉，<em>^_^</em></p>
 <h1 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h1><h2 id="打开开发者模式"><a href="#打开开发者模式" class="headerlink" title="打开开发者模式"></a>打开开发者模式</h2><p>设置–&gt;系统–&gt;关于手机，连续点击7次“版本号”栏，屏幕将出现提示“您正处于开发者模式”，返回上一步“系统”界面，打开“开发人员选项”，关闭“自动系统更新”，打开“USB调试”以及打开“仅充电”模式下允许ADB调试。</p>
-<h2 id="下载adb工具包"><a href="#下载adb工具包" class="headerlink" title="下载adb工具包"></a>下载adb工具包</h2><p>1、下载ADB和驱动，网盘地址链接：<a href="https://pan.baidu.com/s/11QBdu-woPni_ZuE6P7BOAw" target="_blank" rel="noopener">https://pan.baidu.com/s/11QBdu-woPni_ZuE6P7BOAw</a> 提取码：fe2v<br>2、安装驱动，下载包中Handset+WinDriver.exe，进行安装。安装完，把华为手机连上电脑，会自动安装驱动，手机会提示是否usb接口模式和允许使用USB调试模式【一定要等几分钟才能出提示，所以要有耐心】<br>3、解压下载包中的adb到C盘<br>4、运行CMD，输入cd c:\adb，确保点钱目录是C盘adb文件夹</p>
+<h2 id="下载adb工具包"><a href="#下载adb工具包" class="headerlink" title="下载adb工具包"></a>下载adb工具包</h2><p>1、下载ADB和驱动，网盘地址链接：<a href="https://pan.baidu.com/s/11QBdu-woPni_ZuE6P7BOAw" target="_blank" rel="noopener">https://pan.baidu.com/s/11QBdu-woPni_ZuE6P7BOAw</a> 提取码：fe2v<br>2、安装驱动，下载包中Handset+WinDriver.exe，进行安装。安装完，把华为手机连上电脑，会自动安装驱动，手机会提示是否usb接口模式和允许使用USB调试模式【一定要等几分钟才能出提示，所以要有耐心】<br>3、解压下载包中的adb到C盘<br>4、运行CMD，输入cd c:\adb，确保当前目录是C盘adb文件夹</p>
 <h1 id="禁用系统更新"><a href="#禁用系统更新" class="headerlink" title="禁用系统更新"></a>禁用系统更新</h1><p>注意手机要连接电脑，并在开发人员选项中开启USB调试和“仅充电”模式下允许adb调试，运行下面命令查看设备是否连接正常：<br>adb devices</p>
 <p>List of devices attached<br>xxxxxxxxxxxxxxxxxxxx    device</p>
 <p>如果出现 unauthrorized 字样，则到开发人员选项中查看”USB调试”开关是否打开了。</p>
