@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dbaspider.github.io/"/>
-  <updated>2021-04-13T15:47:08.091Z</updated>
+  <updated>2021-04-26T05:49:23.172Z</updated>
   <id>https://dbaspider.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>KiB、KB和Kb傻傻分不清？</title>
+    <link href="https://dbaspider.github.io/2021/04/26/KiB%E3%80%81KB%E5%92%8CKb%E5%82%BB%E5%82%BB%E5%88%86%E4%B8%8D%E6%B8%85%EF%BC%9F/"/>
+    <id>https://dbaspider.github.io/2021/04/26/KiB%E3%80%81KB%E5%92%8CKb%E5%82%BB%E5%82%BB%E5%88%86%E4%B8%8D%E6%B8%85%EF%BC%9F/</id>
+    <published>2021-04-26T04:55:12.000Z</published>
+    <updated>2021-04-26T05:49:23.172Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="KiB、MiB与KB、MB的区别"><a href="#KiB、MiB与KB、MB的区别" class="headerlink" title="KiB、MiB与KB、MB的区别"></a>KiB、MiB与KB、MB的区别</h1><p>KB和MB是由 国际单位制(SI)制定的十进制标准，而KiB和Mib是由国际电工委员会(IEC)制定的二进制标准。<br>也就是通常所说的SI和IEC标准。</p><p>具体换算关系：</p><p>不带“i”的单位换算:</p><ul><li>1KB = 10^3 = 1000 Byte</li><li>1MB = 10^6 = 1000*1000 Byte = 1000KB</li></ul><p>带“i”的单位换算</p><ul><li>1KiB = 2^10 = 1024 Byte</li><li>1MiB = 2^20 = 1024*1024 Byte = 1024KiB</li></ul><h1 id="历史由来"><a href="#历史由来" class="headerlink" title="历史由来"></a>历史由来</h1><p>硬盘的容量用了1000进位而不是以2进制为底的1024进位这个问题已经是常识了，但是存储厂商这么标反而是符合标准的。可能有些朋友在Linux和macOS中见过容量单位的两个大写字母中插了一个i的，比如KiB、MiB、GiB这样的单位，那么它和我们常用的KB、MB和GB有什么区别呢？</p><p>KB代表国际单位制标准规定的1000进位，KiB这类中间带个”i”的是1024进位法的标准写法。Windows使用1024进位，但是没有按照标准写，Linux和macOS等很多其他系统使用1000进位，并且按照规范写了。Kb这类代表1000进位，计量单位为bit而不是byte的单位，常见于描述带宽和媒体码率。</p><p>还是要扯到二进制与十进制身上。</p><p>在国际通用的国际单位制标准（SI）中，对于一个单位的倍数和分数，有着详细的定义。比如对于赫兹这一用于描述频率的导出单位，1000倍时可以称为千赫兹（kHz），1000000（百万）倍时，称为兆赫兹（MHz），再往上以1000倍跳就是吉赫兹（GHz）、太赫兹（THz）……（注意，标准中代表“千”的字母k必须为小写）</p><p>而这些放在单位名之前的字母，其实都是一些代表数量的单词的首字母，比如k是kilo，M是mega，G是giga……这些词代表的数有一个特征——它们都是以10为底数的幂。</p><p>然而到了计算机工业中，在底层的硬件电路中，通用的是二进制，基于十进制的国际单位制对它没用，反而会带来麻烦。为了方便描述以2为底的大数字幂，工程师们联合了起来，由国际电工委员会（IEC）制定了新的用于1024进位的数字前缀，其实就是将原本对应单词中的最后两位改成了”bi”，以代表二进制（binary），而对应的缩写，也从原本的单字母变成了附上”i”，比如kB变成KiB，MB变成MiB，全称为kibibytes，mebibytes。</p><p>但因为这套标准在1998年才提出，虽然马上写入了ISO标准中，但当时Windows都已经出Windows 98了，所以并没能很好的统一整个计算机业界，很多系统和厂商仍然保持了1 KB=1024 Bytes的表示方式，并没有附上”i”。内存方面的JEDEC标准也仍然我行我素，采用了与Windows一样的表示方法，所以我们今天在内存上看到的GB、MB等单位都是1024进位的。而硬盘存储业界，仍然使用1 KB=1000 Bytes的国际单位制标准对容量进行描述。</p><p>不过在Linux下，有一些程序提供了两种表示方式，但也不是都按照标准来写单位，比如：</p><p>再来看到B的大小写区别这个老生常谈的话题上，大写B指的是byte即字节，小写b指的是bit即比特，1 byte = 8 bits。常见使用bit而不是byte来描述的量就是比特率了，比如1000 kb/s，或者写成1000 kbps的形式，都是一样的。而在描述通信带宽的时候也往往会使用bit，比如现在的千兆局域网、百兆光宽带就是1000Mbps、100Mbps而不是1000MB/s、100MB/s，而我们实际看到的文件传输速度使用的是byte来描述，两者有一个八倍的换算关系。</p><p>而同样在这里，国际单位制占据了统治的地位，这些使用bit作为单位的量，大部分采用的都是1000进位而不是1024进位，所以在换算的时候还要考虑到这个因素，于是，我们在Windows下能够看到的百兆宽带最大的理论速度就变成了：</p><p>100 Mb/s = 100 × 1000 × 1000 = 100,000,000 b/s</p><p>100,000,000 b/s = 12,500,000 B/s = 12,207.03125 KiB/s = 11.92 MiB/s</p><p>同理，因为Windows并不遵守规范，所以这个最终显示给你的数字是11.92MB/s，但切记，这不是正确的表示方法。</p><h1 id="看懂网速表示中-Mbps、Mb-s、MB-s-区别"><a href="#看懂网速表示中-Mbps、Mb-s、MB-s-区别" class="headerlink" title="看懂网速表示中 Mbps、Mb/s、MB/s 区别"></a>看懂网速表示中 Mbps、Mb/s、MB/s 区别</h1><p>运营商或者设备商都喜欢将网速标注为Mbps而不是MB/S,不知道各位有没有注意过，设备厂商——华为、中兴、诺基亚之流，运营商——中国移动、联通、电信，亦或是终端制造商——小米、OPPO等，在进行网速宣传时，其速率单位都用的Mbps。例如前不久中国联通宣布，其5G网络测试速率基本上已经全部能达到900+Mbps的速率，有些甚至能够达到1.1Gbps。但是我们平时在讨论网速好坏时，都说的是“MB/s”，也就是每秒几多兆。</p><p>换算关系：</p><ul><li>B = Byte</li><li>b = bit</li><li>1 Kb = 1024 bit</li><li>1 KB = 1024 Byte</li><li>1 Mb = 1024 Kb</li><li>1 MB = 1024 KB</li><li>1 Byte = 8 bit</li><li>1 MB = 8Mb</li><li>1 Mb = 0.125 MB</li></ul><p>其中，bit（比特，1比特代表1个位）是信息的最小单位，是二进制数的一位包含的信息或2个选项中特别指定1个的需要信息量。一般来说，n比特的信息量可以表现出2的n次方种选择。</p><p>而Byte（字节）是计算机信息技术用于计量存储容量的一种计量单位，作为一个单位来处理的一个二进制数字串，是构成信息的一个小单位。最常用的字节是八位的字节，即它包含八位的二进制数。一个位就代表一个0或1（即二进制），每8个位组成一个字节（Byte，简写为B）。</p><p>那么答案就出来了，1 Byte = 8 bit，每秒传输多少bit、每秒传输多少Byte，我们可以用Byte/s、bit/s来表示，换算一下就可以得出8Mbps=8Mb/s=1MB/s。</p><p>通常，运营商说的1M宽带的M是指Mb/s，也就是Mbps，换算一下的话，1M宽带下载速度也就是125KB/s，再去掉损耗的话就是120KB/s左右。以此类推，10M宽带的最快下载速度是1.25MB/s，100M的宽带最快下载速度是12.5MB/s。</p><p>为什么网速用Mbps而不是MB/s呢，呵呵，实际还是营销噱头，数字越大越对消费者有吸引力罢了。<br>我们知道，计算机是以Bit和Byte作为计算单位，其中bit（比特）是电脑辨识讯息的最小单位，再上一个更大的单位为Byte（字节）。<br>一般来说，数据传输速度大多是以“位”（bit，又名“比特”）为单位的，这也就是为什么网速的单位都是Mbps而不是MB/s了，而数据存储是则以“字节”（Byte）为单位，比如硬盘的读写速度一般就用的是MB/S。</p><p>例如著名的SSD测试软件的结果显示：<br><img src="https://img.ithome.com/newsuploadfiles/2019/8/20190805_193841_549.jpeg" alt="AS SSD  Benchmark"></p><p>无论是以Byte还是bit作为网速单位其实都是正确的，但是我们在在书写单位时一定要注意B字母的大小写，此时B字母的大小写真的可以称之为“失之毫厘，谬以千里”。其实运营商等在宣传的时候，Mbps作为网络速率单位是最正确的，因为数据的传输以及运营商在流量收费的时候都是按照比特来计算的；但从消费者的角度来看，MB/s符合我们大众的生活习惯，而且也便于理解。</p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>虽然有标准约定，但很多厂商并不遵守，加上这么多年的混用，实际中还是要根据具体环境和上下文来确定。一般的辨识原则是：</p><p>K单独出现时，代表1000 或 1024，一般会附有备注说明<br>K与Ki一起出现时，K代表1000，Ki代表1024<br>K与k一起出现时，K代表1024，k代表1000</p><p>另外，还有注意是在网速还是存储领域，b/B(bit和Byte)是大写还是小写。小写b表示bit位，大写B表示Byte，1 Byte = 8 bit</p><h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.expreview.com/71068.html" target="_blank" rel="noopener">有问有答：KiB、KB和Kb傻傻分不清？</a><br><a href="https://www.ithome.com/0/437/491.htm" target="_blank" rel="noopener">一文看懂 Mbps、Mb/s、MB/s 有什么区别</a><br><a href="https://zh.wikipedia.org/wiki/Kibibyte" target="_blank" rel="noopener">维基百科 Kibibyte</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;KiB、MiB与KB、MB的区别&quot;&gt;&lt;a href=&quot;#KiB、MiB与KB、MB的区别&quot; class=&quot;headerlink&quot; title=&quot;KiB、MiB与KB、MB的区别&quot;&gt;&lt;/a&gt;KiB、MiB与KB、MB的区别&lt;/h1&gt;&lt;p&gt;KB和MB是由 国际单位制(
+      
+    
+    </summary>
+    
+    
+    
+      <category term="KiB KB Kb MiB GiB MB GB" scheme="https://dbaspider.github.io/tags/KiB-KB-Kb-MiB-GiB-MB-GB/"/>
+    
+  </entry>
   
   <entry>
     <title>如何让BeyondCompare3支持新版本的rar压缩文档</title>
