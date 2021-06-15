@@ -74,6 +74,64 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Android-Studio-4-2升级后问题处理案例两则" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/06/15/Android-Studio-4-2%E5%8D%87%E7%BA%A7%E5%90%8E%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86%E6%A1%88%E4%BE%8B%E4%B8%A4%E5%88%99/" class="article-date">
+  <time datetime="2021-06-15T10:29:59.000Z" itemprop="datePublished">2021-06-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/06/15/Android-Studio-4-2%E5%8D%87%E7%BA%A7%E5%90%8E%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86%E6%A1%88%E4%BE%8B%E4%B8%A4%E5%88%99/">Android Studio 4.2升级后问题处理案例集锦</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>先看看 Android Studio 4.2 带来了啥新玩意：</p>
+<ul>
+<li>按变体配置应用签名</li>
+<li>针对JDK 11 优化Gradle 构建</li>
+<li>System Trace：改进了内存和图形的指标</li>
+<li>现在，R8 retrace 包含在命令行工具中</li>
+<li>新增布局检查器刷新操作</li>
+<li>Jetpack Compose 的Android Gradle 插件支持</li>
+<li>适用于AGP 的升级助理</li>
+<li>…</li>
+</ul>
+<p>balabala，说的不少，但也没看出有什么特别的地方。<br>更多内容，见原文 <a href="https://developer.android.com/studio/preview/features?hl=zh-cn#4.2" target="_blank" rel="noopener">https://developer.android.com/studio/preview/features?hl=zh-cn#4.2</a></p>
+<p>如果原来版本用的挺好的，不建议升级。但对于新版本强迫症患者，肯定会手贱升级一波的，然后问题就来了…</p>
+<h2 id="问题-1-Gradle-Task面板中啥都看不到了"><a href="#问题-1-Gradle-Task面板中啥都看不到了" class="headerlink" title="问题 1: Gradle Task面板中啥都看不到了"></a>问题 1: Gradle Task面板中啥都看不到了</h2><p>原因：这是因为新版本中，AS中在Experimental一栏中有新的内容修改，但是在它的What’s New in 4.2中是没有任何体现的，并且非常体贴的默认给你勾选了”Do not build Gradle task list during Gradle sync”，让你体验一波新版本的福利，解决办法也就显而易见了。</p>
+<p>解决办法：Setting中去掉这项的勾选: “Do not build Gradle task list during Gradle sync”，然后再 Sync Project</p>
+<h2 id="问题-2-构建时报错-java-lang-NoClassDefFoundError-javax-xml-bind-JAXBException"><a href="#问题-2-构建时报错-java-lang-NoClassDefFoundError-javax-xml-bind-JAXBException" class="headerlink" title="问题 2: 构建时报错: java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException"></a>问题 2: 构建时报错: java.lang.NoClassDefFoundError: javax/xml/bind/JAXBException</h2><p>问题原因：在 Android Studio 中运行时，Gradle 构建工具使用 Android Studio 中设置的默认 JDK 版本。在以前的版本中，默认情况下使用 JDK 8；但在 4.2 中，默认的 JDK 版本为 JDK 11。JDK 11 的这项更新会影响 JVM 垃圾回收器的默认配置，因为 JDK 8 使用并行垃圾回收器，而 JDK 11 使用 G1 垃圾回收器。</p>
+<p>解决办法：Project Structure -&gt; Platform Settings\SDKs -&gt; Android API xx Platform -&gt; Change “Java SDK” to 1.8</p>
+<h2 id="问题-3-插件问题"><a href="#问题-3-插件问题" class="headerlink" title="问题 3: 插件问题"></a>问题 3: 插件问题</h2><p>4.2 中插件路径修改了，可能需要重新安装插件。在Android studio 4.2中plugin目录发生了变化：<br>Plugin folder has changed in 4.2 version;<br>From : ~/Library/Application\ Support/AndroidStudio4.2<br>To   : ~/Library/Application\ Support/Google/AndroidStudio4.2/plugins</p>
+<p>ln -s ~/Library/Application\ Support/Google/AndroidStudio4.2/plugins ~/Library/Application\ Support/AndroidStudio4.2</p>
+<h2 id="莫名其妙的其他问题"><a href="#莫名其妙的其他问题" class="headerlink" title="莫名其妙的其他问题"></a>莫名其妙的其他问题</h2><p>问题描述：比如编译时突然提示文件名过长，无法删除文件之类的提示。<br>解决办法：可尝试将kotlin版本升级到最新的1.5.0以上，build gradle插件4.2.0以上，主项目gradle 6.7.1以上</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dbaspider.github.io/2021/06/15/Android-Studio-4-2%E5%8D%87%E7%BA%A7%E5%90%8E%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86%E6%A1%88%E4%BE%8B%E4%B8%A4%E5%88%99/" data-id="ckpxxng1p0000l8v98ymu12px" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-Studio-4-2-%E5%8D%87%E7%BA%A7-%E9%97%AE%E9%A2%98-%E6%A1%88%E4%BE%8B/" rel="tag">Android Studio 4.2 升级 问题 案例</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-KiB、KB和Kb傻傻分不清？" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/04/26/KiB%E3%80%81KB%E5%92%8CKb%E5%82%BB%E5%82%BB%E5%88%86%E4%B8%8D%E6%B8%85%EF%BC%9F/" class="article-date">
@@ -578,56 +636,6 @@
 
 
   
-    <article id="post-公共DNS服务器介绍" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/19/%E5%85%AC%E5%85%B1DNS%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%8B%E7%BB%8D/" class="article-date">
-  <time datetime="2020-02-19T03:46:44.000Z" itemprop="datePublished">2020-02-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/19/%E5%85%AC%E5%85%B1DNS%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%8B%E7%BB%8D/">公共DNS服务器介绍</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="DNS-简介"><a href="#DNS-简介" class="headerlink" title="DNS 简介"></a>DNS 简介</h2><p>DNS（Domain Name System）中文意思为域名解析服务器，它在互联网的作用是把域名转换成为网络可以识别的IP地址。</p>
-<h2 id="DNS-劫持"><a href="#DNS-劫持" class="headerlink" title="DNS 劫持"></a>DNS 劫持</h2><p>域名劫持是互联网攻击的一种方式，通过攻击域名解析服务器（DNS），或伪造域名解析服务器（DNS）的方法，把目标网站域名解析到错误的地址从而实现用户无法访问目标网站的目的。<br>当然，有时候是上网服务提供商(ISP)自己故意搞得劫持，国内用户普遍使用的是ISP运营商提供的DNS服务器，可能会干扰用户正常上网，比如弹广告、阻止访问某些网站等。</p>
-<p><a href="https://juejin.im/post/59ba146c6fb9a00a4636d8b6" target="_blank" rel="noopener">深入理解Http请求、DNS劫持与解析</a><br><a href="https://juejin.im/post/59ba146c6fb9a00a4636d8b6" target="_blank" rel="noopener">https://juejin.im/post/59ba146c6fb9a00a4636d8b6</a></p>
-<h2 id="怎么查看当前使用的DNS服务器地址"><a href="#怎么查看当前使用的DNS服务器地址" class="headerlink" title="怎么查看当前使用的DNS服务器地址"></a>怎么查看当前使用的DNS服务器地址</h2><h3 id="Windows-系统"><a href="#Windows-系统" class="headerlink" title="Windows 系统"></a>Windows 系统</h3><p>打开cmd命令行窗口，输入 ipconfig /all 查看：</p>
-<p>DNS 服务器  . . . . . . . . . . . : 218.2.2.2<br>                                    218.4.4.4</p>
-<h3 id="Linux-系统"><a href="#Linux-系统" class="headerlink" title="Linux 系统"></a>Linux 系统</h3><p>以 RedHat/CentOS 为例，运行 cat /etc/resolv.conf 查看：<br># Generated by NetworkManager<br>nameserver 8.8.8.8<br>nameserver 114.114.114.114</p>
-<h3 id="苹果机器-MAC-OS"><a href="#苹果机器-MAC-OS" class="headerlink" title="苹果机器 MAC OS"></a>苹果机器 MAC OS</h3><p>同 RedHat/CentOS ：<br>cat /etc/resolv.conf</p>
-<p>不同linux发行版方法可能不同，可具体百度或谷歌搜索确认下。</p>
-<p>比如家里宽带是江苏电信提供的，那么DNS 会是下面几个地址：<br>DNS1: 218.2.2.2    DNS2: 218.4.4.4<br>或者：<br>DNS1: 61.147.37.1 DNS2:    218.2.135.1</p>
-<h2 id="公共域名解析服务DNS"><a href="#公共域名解析服务DNS" class="headerlink" title="公共域名解析服务DNS"></a>公共域名解析服务DNS</h2><p>Public DNS(公共域名解析服务): 相对于ISP或一些商业DNS服务提供商而言，对大众开放且免费。如果不想被ISP DNS劫持、过滤的可以试试。<br>好处：不会有ISP的弹出广告推送广告，有些被ISP DNS过滤的网站可以访问到，比如输错网址不会进电信那个114查询页面等等。<br>坏处：比如如果一个网站有电信、网通双线路并使用智能DNS解析，可能因为使用这些DNS服务，而被视为网通用户走网通线路访问该站。</p>
-<h3 id="Google-Public-DNS"><a href="#Google-Public-DNS" class="headerlink" title="Google Public DNS"></a>Google Public DNS</h3><p>是Google于2009年12月5日起提供的一个免费域名解析服务（DNS）, 以下为此服务的DNS地址：<br>IPv4 地址:<br>8.8.8.8 (google-public-dns-a.google.com)<br>8.8.4.4 (google-public-dns-b.google.com)<br>相对来说，更适合国外以及访问国外网站的用户使用。</p>
-<h3 id="国内-Public-DNS"><a href="#国内-Public-DNS" class="headerlink" title="国内 Public DNS"></a>国内 Public DNS</h3><p>■ 114.114.114.114 / 114.114.115.115: 是国内移动、电信和联通通用的DNS，手机和电脑端都可以使用，干净无广告，解析成功率相对来说更高，国内用户使用的比较多，而且速度相对快、稳定，是国内用户上网常用的DNS。<br>■ 180.76.76.76: 百度提供<br>■ 223.5.5.5 / 223.6.6.6: 阿里提供<br>■ 1.2.4.8 / 210.2.4.8 : CNNIC 提供<br>■ 208.67.222.222 / 208.67.220.220 : OpenDNS 提供<br>■ 119.29.29.29 : Dnspod的公共DNS，也就是腾讯公共DNS，节点很多，用户很多<br>■ 117.50.11.11 / 52.80.66.66 : 拦截版 - 微步在线出品，定位于小众用户的精品公共DNS服务，通过大数据分析实现了恶意网站拦截、广告过滤和上网加速功能<br>■ 117.50.10.10 / 52.80.52.52 : 纯净版 - 微步在线出品，定位于小众用户的精品公共DNS服务，通过大数据分析实现了恶意网站拦截、广告过滤和上网加速功能</p>
-<h3 id="国内-Public-DNS-1"><a href="#国内-Public-DNS-1" class="headerlink" title="国内 Public DNS"></a>国内 Public DNS</h3><p>■ 1.1.1.1 : Cloudflare 与 APNIC 的合作项目非盈利，主打隐私保护和高速，这个非常牛的ip地址己经展示了项目实力，但是国内不推荐使用，速度慢<br>■ 8.8.8.8 / 8.8.4.4 : Google Public DNS 四个8，一看就是金主，暴发户<br>■ 80.80.80.80 / 80.80.81.81 : Freenom World是快速且保护隐私的DNS服务器.一家国外免费域名注册商，推出了此项免费服务</p>
-<h2 id="常用-DNS-服务器-IP-地址"><a href="#常用-DNS-服务器-IP-地址" class="headerlink" title="常用 DNS 服务器 IP 地址"></a>常用 DNS 服务器 IP 地址</h2><p><a href="https://www.ip.cn/dns.html" target="_blank" rel="noopener">常用 DNS 服务器 IP 地址</a><br><a href="https://www.ip.cn/dns.html" target="_blank" rel="noopener">https://www.ip.cn/dns.html</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://dbaspider.github.io/2020/02/19/%E5%85%AC%E5%85%B1DNS%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BB%8B%E7%BB%8D/" data-id="ckjsq9lyh000af0v9foguhoxg" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -646,7 +654,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BeyondCompare-winrar-v5/" rel="tag">BeyondCompare winrar v5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KiB-KB-Kb-MiB-GiB-MB-GB/" rel="tag">KiB KB Kb MiB GiB MB GB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA-%E8%A7%A3%E9%94%81-ROOT-BOOTLOADER-UNLOCK-TWRP/" rel="tag">华为手机 解锁 ROOT BOOTLOADER UNLOCK TWRP</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio-4-2-%E5%8D%87%E7%BA%A7-%E9%97%AE%E9%A2%98-%E6%A1%88%E4%BE%8B/" rel="tag">Android Studio 4.2 升级 问题 案例</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BeyondCompare-winrar-v5/" rel="tag">BeyondCompare winrar v5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KiB-KB-Kb-MiB-GiB-MB-GB/" rel="tag">KiB KB Kb MiB GiB MB GB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA-%E8%A7%A3%E9%94%81-ROOT-BOOTLOADER-UNLOCK-TWRP/" rel="tag">华为手机 解锁 ROOT BOOTLOADER UNLOCK TWRP</a></li></ul>
     </div>
   </div>
 
@@ -656,7 +664,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/BeyondCompare-winrar-v5/" style="font-size: 10px;">BeyondCompare winrar v5</a> <a href="/tags/KiB-KB-Kb-MiB-GiB-MB-GB/" style="font-size: 10px;">KiB KB Kb MiB GiB MB GB</a> <a href="/tags/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA-%E8%A7%A3%E9%94%81-ROOT-BOOTLOADER-UNLOCK-TWRP/" style="font-size: 10px;">华为手机 解锁 ROOT BOOTLOADER UNLOCK TWRP</a>
+      <a href="/tags/Android-Studio-4-2-%E5%8D%87%E7%BA%A7-%E9%97%AE%E9%A2%98-%E6%A1%88%E4%BE%8B/" style="font-size: 10px;">Android Studio 4.2 升级 问题 案例</a> <a href="/tags/BeyondCompare-winrar-v5/" style="font-size: 10px;">BeyondCompare winrar v5</a> <a href="/tags/KiB-KB-Kb-MiB-GiB-MB-GB/" style="font-size: 10px;">KiB KB Kb MiB GiB MB GB</a> <a href="/tags/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA-%E8%A7%A3%E9%94%81-ROOT-BOOTLOADER-UNLOCK-TWRP/" style="font-size: 10px;">华为手机 解锁 ROOT BOOTLOADER UNLOCK TWRP</a>
     </div>
   </div>
 
@@ -665,7 +673,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
     </div>
   </div>
 
@@ -676,6 +684,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/06/15/Android-Studio-4-2%E5%8D%87%E7%BA%A7%E5%90%8E%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86%E6%A1%88%E4%BE%8B%E4%B8%A4%E5%88%99/">Android Studio 4.2升级后问题处理案例集锦</a>
+          </li>
         
           <li>
             <a href="/2021/04/26/KiB%E3%80%81KB%E5%92%8CKb%E5%82%BB%E5%82%BB%E5%88%86%E4%B8%8D%E6%B8%85%EF%BC%9F/">KiB、KB和Kb傻傻分不清？</a>
@@ -691,10 +703,6 @@
         
           <li>
             <a href="/2021/04/04/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA%E7%A6%81%E7%94%A8%E7%B3%BB%E7%BB%9F%E6%9B%B4%E6%96%B0%E7%9A%84%E5%8A%9E%E6%B3%95/">华为手机禁用系统更新的办法</a>
-          </li>
-        
-          <li>
-            <a href="/2021/01/11/Hexo%E7%B3%BB%E5%88%97-5-%E9%87%8D%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%A6%82%E4%BD%95%E5%A4%87%E4%BB%BD%E5%92%8C%E6%81%A2%E5%A4%8D/">Hexo系列-5-重装系统如何备份和恢复</a>
           </li>
         
       </ul>
