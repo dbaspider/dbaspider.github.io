@@ -74,6 +74,65 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Android-Studio-Gradle-构建失败：内存不足" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/06/20/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5%EF%BC%9A%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3/" class="article-date">
+  <time datetime="2021-06-19T16:01:36.000Z" itemprop="datePublished">2021-06-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/06/20/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5%EF%BC%9A%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3/">Android Studio Gradle 构建失败：内存不足</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Android-Studio-Gradle-Build-failed-with-following-message-in-the-log"><a href="#Android-Studio-Gradle-Build-failed-with-following-message-in-the-log" class="headerlink" title="Android Studio Gradle Build failed with following message in the log:"></a>Android Studio Gradle Build failed with following message in the log:</h1><p> …<br>      at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.lambda$run$0(DefaultPlanExecutor.java:127)<br>      at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:191)<br>      at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.executeNextNode(DefaultPlanExecutor.java:182)<br>      at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:124)<br>      at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)<br>      at org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:48)<br>      at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)<br>      at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)<br>      at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:56)<br>      at java.lang.Thread.run(Thread.java:748)<br>  Caused by: java.lang.OutOfMemoryError: Metaspace</p>
+<ul>
+<li><p>Try:<br>Run with –stacktrace option to get the stack trace. Run with –info or –debug option to get more log output. Run with –scan to get full insights.</p>
+</li>
+<li><p>Get more help at <a href="https://help.gradle.org" target="_blank" rel="noopener">https://help.gradle.org</a></p>
+</li>
+</ul>
+<p>BUILD FAILED in 3m 1s</p>
+<p>FAILURE: Build failed with an exception.</p>
+<ul>
+<li><p>What went wrong:<br>Metaspace</p>
+</li>
+<li><p>Try:<br>Run with –stacktrace option to get the stack trace. Run with –info or –debug option to get more log output. Run with –scan to get full insights.</p>
+</li>
+<li><p>Get more help at <a href="https://help.gradle.org" target="_blank" rel="noopener">https://help.gradle.org</a></p>
+</li>
+</ul>
+<p>BUILD FAILED in 3m 1s</p>
+<h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>Check the jvmargs parameter in file gradle.properties (project root dir):</p>
+<p>#The setting is particularly useful for tweaking memory settings.<br>org.gradle.jvmargs=-Xmx1536m</p>
+<p>You need add the org.gradle.jvmargs line or modify its value to be more larger than current.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dbaspider.github.io/2021/06/20/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5%EF%BC%9A%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3/" data-id="ckq3ygag50000cgv9h1oscw4p" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5-%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3-OutOfMemoryError-Metaspace/" rel="tag">Android Studio Gradle 构建失败 内存不足 OutOfMemoryError Metaspace</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Android-Studio-中文乱码问题彻底解决" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/06/19/Android-Studio-%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98%E5%BD%BB%E5%BA%95%E8%A7%A3%E5%86%B3/" class="article-date">
@@ -562,70 +621,11 @@
 
 
   
-    <article id="post-Docker系列之3-常用命令" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/22/Docker%E7%B3%BB%E5%88%97%E4%B9%8B3-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="article-date">
-  <time datetime="2020-02-22T15:09:22.000Z" itemprop="datePublished">2020-02-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/22/Docker%E7%B3%BB%E5%88%97%E4%B9%8B3-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">Docker系列之3-常用命令</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="常用-Docker-命令列表"><a href="#常用-Docker-命令列表" class="headerlink" title="常用 Docker 命令列表"></a>常用 Docker 命令列表</h2><p>目前，Docker 共有 13 个管理命令和 41 个通用命令，以下是常用 Docker 命令列表：<br>docker help     — 列出 Docker 可用命令；<br>docker attach     — 将本地输入、输出、错误流附加到正在运行的容器；<br>docker commit     — 从当前更改的容器状态创建新镜像；<br>docker exec     — 在活动或正在运行的容器中运行命令；<br>docker history     — 显示镜像历史记录；<br>docker info     — 显示系统范围信息；<br>docker inspect     — 查找有关 docker 容器和镜像的系统级信息；<br>docker login     — 登录到本地注册表或 Docker Hub；<br>docker pull     — 从本地注册表或 Docker Hub 中提取镜像或存储库；<br>docker ps         — 列出容器的各种属性；<br>docker restart     — 停止并启动容器；<br>docker rm         — 移除容器；<br>docker rmi         — 删除镜像；<br>docker run         — 在隔离容器中运行命令；<br>docker search     — 在 Docker Hub 中搜索镜像；<br>docker start     — 启动已停止的容器；<br>docker stop     — 停止运行容器；<br>docker version     — 提供 docker 版本信息。</p>
-<h2 id="查看-Docker-版本和系统信息"><a href="#查看-Docker-版本和系统信息" class="headerlink" title="查看 Docker 版本和系统信息"></a>查看 Docker 版本和系统信息</h2><p>无论是在本地还是云端，我们都需要检查 Docker 版本和系统信息，可以使用以下命令找到 Docker 版本:<br>$ docker version</p>
-<p>该命令将显示部分设备信息，比如服务器版本、存储驱动程序、内核版本、操作系统、总内存等。当尝试为当前 Docker 安装启动新资源或尝试找出系统级资源分配问题时，这些信息非常有用，这也是检查运行、停止容器数量及下载镜像数量的快速方法。<br>$ docker info</p>
-<h2 id="搜索和下载-Docker-镜像"><a href="#搜索和下载-Docker-镜像" class="headerlink" title="搜索和下载 Docker 镜像"></a>搜索和下载 Docker 镜像</h2><p>可以使用 docker search 命令在 Docker Hub 搜索已有镜像：<br>$ docker search ubuntu</p>
-<p>以上对 ubuntu 的搜索显示可用镜像、描述和官方状态等信息。如果要下载 ubuntu 镜像，可以使用 docker pull 命令：<br>$ docker pull ubuntu<br>$ docker pull nginx</p>
-<p>如果寻找 Ubuntu 16.04 版本，可使用 16.04 标签下载特定版本：<br>$ docker pull ubuntu:16.04</p>
-<h2 id="查看-Docker-镜像"><a href="#查看-Docker-镜像" class="headerlink" title="查看 Docker 镜像"></a>查看 Docker 镜像</h2><p>使用 docker info 命令查找拥有镜像数量：<br>$ docker info<br>Containers: 0<br>Running: 0<br>Paused: 0<br>Stopped: 0<br>Images: 1<br>…</p>
-<p>docker images 命令可详细列出拥有镜像：<br>$ docker images<br>REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE<br>ubuntu              16.04               5e8b97a2a082        2 weeks ago         114MB<br>ubuntu              latest              113a43faa138        2 weeks ago         81.2MB<br>nginx               latest              cd5239a0906a        2 weeks ago         109MB</p>
-<h2 id="运行镜像的-Docker-容器"><a href="#运行镜像的-Docker-容器" class="headerlink" title="运行镜像的 Docker 容器"></a>运行镜像的 Docker 容器</h2><p>假设想在 docker 上运行 NGINX 服务器，可运行以下命令：<br>$ docker run -p 8080:80 nginx</p>
-<p>用 run 命令从 Docker Hub 提取 nginx 映像创建 NGINX 容器。 -p 8080:80 会告诉 Docker 将 localhost 端口 8080 映射到 Docker 容器端口 80，应该能够从 http:// localhost:8080 访问 NGINX 服务器。</p>
-<p>NGINX 容器已附加到命令行。如果退出命令行，容器将会停止，可使用 detach（’-d’）启动 NGINX 容器，这样即使退出命令行也可继续运行。<br>$ docker run -p 8080:80 -d nginx<br>以上命令将以分离模式启动容器并返回命令行。</p>
-<p>也可在容器创建过程中为容器命名。创建一个名为 my_nginx 的 NGINX 容器：<br>$ docker run –name my_nginx -p 8888:80 -d nginx</p>
-<h2 id="使用-docker-ps-命令列出-Docker-容器"><a href="#使用-docker-ps-命令列出-Docker-容器" class="headerlink" title="使用 docker ps 命令列出 Docker 容器"></a>使用 docker ps 命令列出 Docker 容器</h2><p>docker ps 命令允许查找正在运行的所有容器：<br>$ docker ps</p>
-<p>要显示暂停或已停止的容器，需要加 -a 选项：<br>$ docker ps -a</p>
-<h2 id="启动，停止，重启和杀死容器"><a href="#启动，停止，重启和杀死容器" class="headerlink" title="启动，停止，重启和杀死容器"></a>启动，停止，重启和杀死容器</h2><p>假设要停止’my_nginx’容器，可使用 CONTAINER ID 或 NAME。<br>$ docker stop my_nginx</p>
-<p>如果’my_nginx’容器处于退出状态。可使用 docker start 再次启动容器：<br>$ docker start my_nginx</p>
-<p>如果由于某些问题而需重启容器，则可使用 restart 命令，这比单独停止和启动容器速度更快：<br>$ docker restart my_nginx</p>
-<p>可以像进程一样终止 docker 容器，比如终止 my_nginx 容器：<br>$ docker kill my_nginx</p>
-<h2 id="Docker-Exec-Bash-和-Docker-SSH"><a href="#Docker-Exec-Bash-和-Docker-SSH" class="headerlink" title="Docker Exec Bash 和 Docker SSH"></a>Docker Exec Bash 和 Docker SSH</h2><p>如果需要与 shell 进行交互以创建服务或解决问题，可以使用 docker exec 命令创建交互式 shell。比如，用 bash shell 从 ubuntu 映像启动一个容器：<br>$ docker run –name my_ubuntu -it ubuntu:latest bash<br>root@a19c770b8621:/#</p>
-<p>root @haracle＃表示位于 Docker 容器的 bash shell 中，可以运行 shell 命令：<br>root@a19c770b8621:/# ls<br>bin boot dev etc home lib lib64 media mnt opt proc root run sbin srv sys tmp usr var<br>root@a19c770b8621:/# pwd<br>/</p>
-<p>如果 my_ubuntu 正在运行。假设想将 Docker ssh 放入’my_ubuntu’容器中，可以使用 docker exec bash：<br>$ docker exec -it my_ubuntu bash<br>root@a19c770b8621:/#<br>使用 docker exec 向容器发出命令。例如，可以直接用命令提示符在 my_ubuntu 容器上运行 ls 命令：<br>$ docker exec -it my_ubuntu ls<br>bin dev home lib64 mnt proc run srv tmp var<br>boot etc lib media opt root sbin sys usr</p>
-<h2 id="以分离模式启动容器并使用-docker-attach"><a href="#以分离模式启动容器并使用-docker-attach" class="headerlink" title="以分离模式启动容器并使用 docker attach"></a>以分离模式启动容器并使用 docker attach</h2><p>以上示例用附加模式启动 ubuntu 容器，我们也可在分离模式下启动：<br>$ docker run -it -d –name my_ubuntu_2 ubuntu:latest bash<br>75b28b7208359137b3e1dc2843387918e28b4c6c4860ef0cdeac79c205f5cbc4<br>验证容器是否正在运行：<br>$ docker ps<br>CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                  NAMES<br>75b28b720835        ubuntu:latest       “bash”                   3 minutes ago       Up 3 minutes </p>
-<p>使用 docker attach 命令获取 docker exec bash-like 效果：<br>$ docker attach my_ubuntu_2<br>root@75b28b720835:/#</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://dbaspider.github.io/2020/02/22/Docker%E7%B3%BB%E5%88%97%E4%B9%8B3-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" data-id="ckjsq9lye0008f0v94on80m2k" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
   </nav>
 
 </section>
@@ -639,7 +639,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio-4-2-%E5%8D%87%E7%BA%A7-%E9%97%AE%E9%A2%98-%E6%A1%88%E4%BE%8B/" rel="tag">Android Studio 4.2 升级 问题 案例</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio-IntelliJ-IDEA-JAVA-%E4%B8%AD%E6%96%87-%E4%B9%B1%E7%A0%81-%E6%8E%A7%E5%88%B6%E5%8F%B0/" rel="tag">Android Studio IntelliJ IDEA JAVA 中文 乱码 控制台</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BeyondCompare-winrar-v5/" rel="tag">BeyondCompare winrar v5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KiB-KB-Kb-MiB-GiB-MB-GB/" rel="tag">KiB KB Kb MiB GiB MB GB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA-%E8%A7%A3%E9%94%81-ROOT-BOOTLOADER-UNLOCK-TWRP/" rel="tag">华为手机 解锁 ROOT BOOTLOADER UNLOCK TWRP</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio-4-2-%E5%8D%87%E7%BA%A7-%E9%97%AE%E9%A2%98-%E6%A1%88%E4%BE%8B/" rel="tag">Android Studio 4.2 升级 问题 案例</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5-%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3-OutOfMemoryError-Metaspace/" rel="tag">Android Studio Gradle 构建失败 内存不足 OutOfMemoryError Metaspace</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio-IntelliJ-IDEA-JAVA-%E4%B8%AD%E6%96%87-%E4%B9%B1%E7%A0%81-%E6%8E%A7%E5%88%B6%E5%8F%B0/" rel="tag">Android Studio IntelliJ IDEA JAVA 中文 乱码 控制台</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BeyondCompare-winrar-v5/" rel="tag">BeyondCompare winrar v5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KiB-KB-Kb-MiB-GiB-MB-GB/" rel="tag">KiB KB Kb MiB GiB MB GB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA-%E8%A7%A3%E9%94%81-ROOT-BOOTLOADER-UNLOCK-TWRP/" rel="tag">华为手机 解锁 ROOT BOOTLOADER UNLOCK TWRP</a></li></ul>
     </div>
   </div>
 
@@ -649,7 +649,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Android-Studio-4-2-%E5%8D%87%E7%BA%A7-%E9%97%AE%E9%A2%98-%E6%A1%88%E4%BE%8B/" style="font-size: 10px;">Android Studio 4.2 升级 问题 案例</a> <a href="/tags/Android-Studio-IntelliJ-IDEA-JAVA-%E4%B8%AD%E6%96%87-%E4%B9%B1%E7%A0%81-%E6%8E%A7%E5%88%B6%E5%8F%B0/" style="font-size: 10px;">Android Studio IntelliJ IDEA JAVA 中文 乱码 控制台</a> <a href="/tags/BeyondCompare-winrar-v5/" style="font-size: 10px;">BeyondCompare winrar v5</a> <a href="/tags/KiB-KB-Kb-MiB-GiB-MB-GB/" style="font-size: 10px;">KiB KB Kb MiB GiB MB GB</a> <a href="/tags/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA-%E8%A7%A3%E9%94%81-ROOT-BOOTLOADER-UNLOCK-TWRP/" style="font-size: 10px;">华为手机 解锁 ROOT BOOTLOADER UNLOCK TWRP</a>
+      <a href="/tags/Android-Studio-4-2-%E5%8D%87%E7%BA%A7-%E9%97%AE%E9%A2%98-%E6%A1%88%E4%BE%8B/" style="font-size: 10px;">Android Studio 4.2 升级 问题 案例</a> <a href="/tags/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5-%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3-OutOfMemoryError-Metaspace/" style="font-size: 10px;">Android Studio Gradle 构建失败 内存不足 OutOfMemoryError Metaspace</a> <a href="/tags/Android-Studio-IntelliJ-IDEA-JAVA-%E4%B8%AD%E6%96%87-%E4%B9%B1%E7%A0%81-%E6%8E%A7%E5%88%B6%E5%8F%B0/" style="font-size: 10px;">Android Studio IntelliJ IDEA JAVA 中文 乱码 控制台</a> <a href="/tags/BeyondCompare-winrar-v5/" style="font-size: 10px;">BeyondCompare winrar v5</a> <a href="/tags/KiB-KB-Kb-MiB-GiB-MB-GB/" style="font-size: 10px;">KiB KB Kb MiB GiB MB GB</a> <a href="/tags/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA-%E8%A7%A3%E9%94%81-ROOT-BOOTLOADER-UNLOCK-TWRP/" style="font-size: 10px;">华为手机 解锁 ROOT BOOTLOADER UNLOCK TWRP</a>
     </div>
   </div>
 
@@ -671,6 +671,10 @@
       <ul>
         
           <li>
+            <a href="/2021/06/20/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5%EF%BC%9A%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3/">Android Studio Gradle 构建失败：内存不足</a>
+          </li>
+        
+          <li>
             <a href="/2021/06/19/Android-Studio-%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%E9%97%AE%E9%A2%98%E5%BD%BB%E5%BA%95%E8%A7%A3%E5%86%B3/">Android Studio 中文乱码问题彻底解决</a>
           </li>
         
@@ -684,10 +688,6 @@
         
           <li>
             <a href="/2021/04/13/%E8%AE%A9BeyondCompare3%E6%94%AF%E6%8C%81%E6%96%B0%E7%89%88%E6%9C%AC%E7%9A%84rar%E5%8E%8B%E7%BC%A9%E6%96%87%E6%A1%A3/">如何让BeyondCompare3支持新版本的rar压缩文档</a>
-          </li>
-        
-          <li>
-            <a href="/2021/04/04/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA%E6%80%8E%E4%B9%88%E8%A7%A3%E9%94%81%E5%92%8CROOT/">华为手机怎么解锁和ROOT</a>
           </li>
         
       </ul>

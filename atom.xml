@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dbaspider.github.io/"/>
-  <updated>2021-06-19T15:56:03.896Z</updated>
+  <updated>2021-06-19T16:07:08.230Z</updated>
   <id>https://dbaspider.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Android Studio Gradle 构建失败：内存不足</title>
+    <link href="https://dbaspider.github.io/2021/06/20/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5%EF%BC%9A%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3/"/>
+    <id>https://dbaspider.github.io/2021/06/20/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5%EF%BC%9A%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3/</id>
+    <published>2021-06-19T16:01:36.000Z</published>
+    <updated>2021-06-19T16:07:08.230Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Android-Studio-Gradle-Build-failed-with-following-message-in-the-log"><a href="#Android-Studio-Gradle-Build-failed-with-following-message-in-the-log" class="headerlink" title="Android Studio Gradle Build failed with following message in the log:"></a>Android Studio Gradle Build failed with following message in the log:</h1><p> …<br>      at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.lambda$run$0(DefaultPlanExecutor.java:127)<br>      at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:191)<br>      at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.executeNextNode(DefaultPlanExecutor.java:182)<br>      at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:124)<br>      at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)<br>      at org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:48)<br>      at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)<br>      at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)<br>      at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:56)<br>      at java.lang.Thread.run(Thread.java:748)<br>  Caused by: java.lang.OutOfMemoryError: Metaspace</p><ul><li><p>Try:<br>Run with –stacktrace option to get the stack trace. Run with –info or –debug option to get more log output. Run with –scan to get full insights.</p></li><li><p>Get more help at <a href="https://help.gradle.org" target="_blank" rel="noopener">https://help.gradle.org</a></p></li></ul><p>BUILD FAILED in 3m 1s</p><p>FAILURE: Build failed with an exception.</p><ul><li><p>What went wrong:<br>Metaspace</p></li><li><p>Try:<br>Run with –stacktrace option to get the stack trace. Run with –info or –debug option to get more log output. Run with –scan to get full insights.</p></li><li><p>Get more help at <a href="https://help.gradle.org" target="_blank" rel="noopener">https://help.gradle.org</a></p></li></ul><p>BUILD FAILED in 3m 1s</p><h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>Check the jvmargs parameter in file gradle.properties (project root dir):</p><p>#The setting is particularly useful for tweaking memory settings.<br>org.gradle.jvmargs=-Xmx1536m</p><p>You need add the org.gradle.jvmargs line or modify its value to be more larger than current.</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Android-Studio-Gradle-Build-failed-with-following-message-in-the-log&quot;&gt;&lt;a href=&quot;#Android-Studio-Gradle-Build-failed-with-following-me
+      
+    
+    </summary>
+    
+    
+    
+      <category term="Android Studio Gradle 构建失败 内存不足 OutOfMemoryError Metaspace" scheme="https://dbaspider.github.io/tags/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5-%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3-OutOfMemoryError-Metaspace/"/>
+    
+  </entry>
   
   <entry>
     <title>Android Studio 中文乱码问题彻底解决</title>
@@ -445,21 +469,6 @@
 &lt;p&gt;解决办法：&lt;/p&gt;
 &lt;p&gt;git bash进
       
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>test_my_site</title>
-    <link href="https://dbaspider.github.io/2020/02/06/test-my-site/"/>
-    <id>https://dbaspider.github.io/2020/02/06/test-my-site/</id>
-    <published>2020-02-06T11:29:21.000Z</published>
-    <updated>2020-02-06T11:29:21.941Z</updated>
-    
-    <summary type="html">
     
     </summary>
     
