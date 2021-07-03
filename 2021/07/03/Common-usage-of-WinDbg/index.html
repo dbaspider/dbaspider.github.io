@@ -8,17 +8,19 @@
   
 
   
-  <title>Tag: KiB KB Kb MiB GiB MB GB | 大风起兮云飞扬</title>
+  <title>WinDbg一般用法(Common usage of WinDbg) | 大风起兮云飞扬</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="dbaspider home">
-<meta property="og:type" content="website">
-<meta property="og:title" content="大风起兮云飞扬">
-<meta property="og:url" content="https://dbaspider.github.io/tags/KiB-KB-Kb-MiB-GiB-MB-GB/index.html">
+  <meta name="description" content="What is windbg?windbg (formally name is Debugging Tools for Windows).The Windows Debugger (WinDbg) can be used to debug kernel-mode and user-mode code, analyze crash dumps, and examine the CPU registe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WinDbg一般用法(Common usage of WinDbg)">
+<meta property="og:url" content="https://dbaspider.github.io/2021/07/03/Common-usage-of-WinDbg/index.html">
 <meta property="og:site_name" content="大风起兮云飞扬">
-<meta property="og:description" content="dbaspider home">
+<meta property="og:description" content="What is windbg?windbg (formally name is Debugging Tools for Windows).The Windows Debugger (WinDbg) can be used to debug kernel-mode and user-mode code, analyze crash dumps, and examine the CPU registe">
 <meta property="og:locale" content="zh">
+<meta property="article:published_time" content="2021-07-03T03:47:53.000Z">
+<meta property="article:modified_time" content="2021-07-03T04:32:39.914Z">
 <meta property="article:author" content="dbaspider">
-<meta property="article:tag" content="dbaspider">
+<meta property="article:tag" content="windbg usage Windows debug tool">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="大风起兮云飞扬" type="application/atom+xml">
@@ -72,40 +74,79 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2021/04/26/KiB%E3%80%81KB%E5%92%8CKb%E5%82%BB%E5%82%BB%E5%88%86%E4%B8%8D%E6%B8%85%EF%BC%9F/" class="archive-article-date">
-  <time datetime="2021-04-26T04:55:12.000Z" itemprop="datePublished">Apr 26</time>
+        <section id="main"><article id="post-Common-usage-of-WinDbg" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/07/03/Common-usage-of-WinDbg/" class="article-date">
+  <time datetime="2021-07-03T03:47:53.000Z" itemprop="datePublished">2021-07-03</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/04/26/KiB%E3%80%81KB%E5%92%8CKb%E5%82%BB%E5%82%BB%E5%88%86%E4%B8%8D%E6%B8%85%EF%BC%9F/">KiB、KB和Kb傻傻分不清？</a>
+    <h1 class="article-title" itemprop="name">
+      WinDbg一般用法(Common usage of WinDbg)
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="What-is-windbg"><a href="#What-is-windbg" class="headerlink" title="What is windbg?"></a>What is windbg?</h1><p>windbg (formally name is Debugging Tools for Windows).<br>The Windows Debugger (WinDbg) can be used to debug kernel-mode and user-mode code, analyze crash dumps, and examine the CPU registers while the code executes.</p>
+<p>You can get it from <a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools</a></p>
+<p>WinDbg是Microsoft Windows上的多用途调试器，可从微软网站上免费下载安装使用。可用于调试用户态下的应用程序、驱动程序，以及核心态下的操作系统自身。该软件是GUI界面，但与更为著名但功能稍弱的Visual Studio Debugger几乎完全不同。</p>
+<p>WinDbg看调试核心态或用户态下的内存卸载文件。</p>
+<p>WinDbg能从服务器自动装载匹配的调试符号文件，如PDB文件。调试符号文件在源代码文件与二进制可执行程序之间创建对应。Microsoft的公开的符号服务器提供了Windows 2000以后各版本操作系统及服务包的绝大部分符号。</p>
+<p>WinDbg较新版本作为免费的Debugging Tools for Windows包的组成部分被发行，在WinDbg与命令行调试器前端如KD，CDB，NTSD之间共享了同一个调试器后端。</p>
+<h1 id="Setup-symbols-search-path"><a href="#Setup-symbols-search-path" class="headerlink" title="Setup symbols search path"></a>Setup symbols search path</h1><p>Open File -&gt; Symble File Path, fill up with:</p>
+<p>C:\myProgramPDB;C:\Windows\symbols;srv<em>D:\localsymbols</em><a href="http://msdl.microsoft.com/download/symbols" target="_blank" rel="noopener">http://msdl.microsoft.com/download/symbols</a></p>
+<p>This includes your app symbols path and system symbols path.</p>
+<p>srv<em>E:\mysymbols</em><a href="http://msdl.microsoft.com/download/symbols" target="_blank" rel="noopener">http://msdl.microsoft.com/download/symbols</a></p>
+<h1 id="Analyze-the-core-dump-file"><a href="#Analyze-the-core-dump-file" class="headerlink" title="Analyze the core dump file"></a>Analyze the core dump file</h1><p>Open File -&gt; Open Crash Dump, browser the dmp file you wish to analyze:</p>
+<p>C:\Windows\LiveKernelReports\WATCHDOG\WD-20210702-0011.dmp<br>C:\Windows\LiveKernelReports\WATCHDOG\WD-20210629-2245.dmp</p>
+<p>then wait some minutes(windbg will download symbols from the internet).</p>
+<p>When windbgt is ready, run “!analyze -v” commmand to let windbg do some auto analyze job…</p>
+<p>kb : Displays the first three parameters that are passed to each function in the stack trace<br>kc : Displays a clean stack trace. Each display line includes only the module name and the function name</p>
+<p>.ecxr : displays the context record that is associated with the current exception<br>~ :  查看系统当前线程，使用<del>*s命令切换线程，如需要切换到8号线程，可以使用命令：</del>8s</p>
+<h1 id="Learn-more"><a href="#Learn-more" class="headerlink" title="Learn more"></a>Learn more</h1><p>Windbg使用简明指南 <a href="https://www.cnblogs.com/daoyuly/p/3570037.html" target="_blank" rel="noopener">https://www.cnblogs.com/daoyuly/p/3570037.html</a> </p>
 
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dbaspider.github.io/2021/07/03/Common-usage-of-WinDbg/" data-id="ckqnao7bk0003vgv9hhdy5lg8" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windbg-usage-Windows-debug-tool/" rel="tag">windbg usage Windows debug tool</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2021/07/03/Android-Studio-Gradle%E6%9E%84%E5%BB%BA%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81%E7%9A%84%E5%88%86%E6%9E%90%E5%92%8C%E8%A7%A3%E5%86%B3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Android Studio Gradle构建依赖冲突的分析和解决
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2021/06/20/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5%EF%BC%9A%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Android Studio Gradle 构建失败：内存不足</div>
+    </a>
+  
+</nav>
+
+  
+</article>
 
 </section>
         

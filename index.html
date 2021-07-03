@@ -74,6 +74,109 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Android-Studio-Gradle构建依赖冲突的分析和解决" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/07/03/Android-Studio-Gradle%E6%9E%84%E5%BB%BA%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81%E7%9A%84%E5%88%86%E6%9E%90%E5%92%8C%E8%A7%A3%E5%86%B3/" class="article-date">
+  <time datetime="2021-07-03T04:34:21.000Z" itemprop="datePublished">2021-07-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/03/Android-Studio-Gradle%E6%9E%84%E5%BB%BA%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81%E7%9A%84%E5%88%86%E6%9E%90%E5%92%8C%E8%A7%A3%E5%86%B3/">Android Studio Gradle构建依赖冲突的分析和解决</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="问题介绍"><a href="#问题介绍" class="headerlink" title="问题介绍"></a>问题介绍</h1><p>如果App或者库依赖了很多第三方组件库，那么依赖冲突就再所难免。不同版本的库混在在一起，明显的冲突会导致编译过程中就报错。<br>不明显的隐含冲突更为严重，因为可以正常构建出app包，但报错可能会在app运行时出现，更加难以处理。</p>
+<p>例如下面是构建时的一个报错：</p>
+<p>build.gradle: Error: All com.android.support libraries must use the exact same version specification (mixing versions can lead to runtime crashes). Found versions 28.0.0, 27.1.0. Examples include com.android.support:animated-vector-drawable:28.0.0 and com.android.support:exifinterface:27.1.0 [GradleCompatible]</p>
+<h1 id="分析哪些库版本冲突了"><a href="#分析哪些库版本冲突了" class="headerlink" title="分析哪些库版本冲突了"></a>分析哪些库版本冲突了</h1><p>简单项目可能人工查看就能定位到，但一般项目都依赖了很多三方组件，人工分析查看就无能为力了。实际上Gradle提供了依赖查看树命令，可以方便的将项目中的全部依赖以tree的形式展现出来，非常便于查看：</p>
+<p>查看全部配置下的依赖树：<br>gradlew -q dependencies app:dependencies</p>
+<p>查看某个具体配置下的依赖树：<br>gradlew -q dependencies app:dependencies –configuration debugAndroidTestCompileClasspath<br>gradlew -q dependencies app:dependencies –configuration debugUnitTestCompileClasspath<br>gradlew -q dependencies app:dependencies –configuration debugCompileClasspath</p>
+<p>gradlew -q dependencies app:dependencies –configuration releaseCompileClasspath<br>gradlew -q dependencies app:dependencies –configuration releaseUnitTestCompileClasspath<br>gradlew -q dependencies app:dependencies –configuration releaseRuntimeClasspath</p>
+<h1 id="如何解决冲突"><a href="#如何解决冲突" class="headerlink" title="如何解决冲突"></a>如何解决冲突</h1><h3 id="1-通过-DependencyResolve-强制修改版本"><a href="#1-通过-DependencyResolve-强制修改版本" class="headerlink" title="1. 通过 DependencyResolve 强制修改版本"></a>1. 通过 DependencyResolve 强制修改版本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">configurations.all &#123;</span><br><span class="line">    resolutionStrategy.eachDependency &#123; DependencyResolveDetails details -&gt;</span><br><span class="line">        def requested &#x3D; details.requested</span><br><span class="line">        if (requested.group &#x3D;&#x3D; &#39;com.android.support&#39;) &#123;</span><br><span class="line">            if (!requested.name.startsWith(&quot;multidex&quot;)) &#123;</span><br><span class="line">                details.useVersion &#39;28.0.0&#39;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-通过-exclude-排除有问题的版本依赖"><a href="#2-通过-exclude-排除有问题的版本依赖" class="headerlink" title="2. 通过 exclude 排除有问题的版本依赖"></a>2. 通过 exclude 排除有问题的版本依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">androidTestCompile(&#39;com.android.support.test.espresso:espresso-core:2.2.2&#39;, &#123;</span><br><span class="line">        exclude group: &#39;com.android.support&#39;, module: &#39;support-annotations&#39;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">implementation(&#39;com.facebook.android:facebook-login:[4,5)&#39;) &#123;</span><br><span class="line">    &#x2F;&#x2F; contains com.android.support:v7:27.0.2, included required com.android.support.*:27.1.1 modules</span><br><span class="line">    exclude group: &#39;com.android.support&#39;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dbaspider.github.io/2021/07/03/Android-Studio-Gradle%E6%9E%84%E5%BB%BA%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81%E7%9A%84%E5%88%86%E6%9E%90%E5%92%8C%E8%A7%A3%E5%86%B3/" data-id="ckqnao7av0000vgv9d85a07uv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA-%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/" rel="tag">Android Studio Gradle 构建 依赖冲突</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Common-usage-of-WinDbg" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2021/07/03/Common-usage-of-WinDbg/" class="article-date">
+  <time datetime="2021-07-03T03:47:53.000Z" itemprop="datePublished">2021-07-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/07/03/Common-usage-of-WinDbg/">WinDbg一般用法(Common usage of WinDbg)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="What-is-windbg"><a href="#What-is-windbg" class="headerlink" title="What is windbg?"></a>What is windbg?</h1><p>windbg (formally name is Debugging Tools for Windows).<br>The Windows Debugger (WinDbg) can be used to debug kernel-mode and user-mode code, analyze crash dumps, and examine the CPU registers while the code executes.</p>
+<p>You can get it from <a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools</a></p>
+<p>WinDbg是Microsoft Windows上的多用途调试器，可从微软网站上免费下载安装使用。可用于调试用户态下的应用程序、驱动程序，以及核心态下的操作系统自身。该软件是GUI界面，但与更为著名但功能稍弱的Visual Studio Debugger几乎完全不同。</p>
+<p>WinDbg看调试核心态或用户态下的内存卸载文件。</p>
+<p>WinDbg能从服务器自动装载匹配的调试符号文件，如PDB文件。调试符号文件在源代码文件与二进制可执行程序之间创建对应。Microsoft的公开的符号服务器提供了Windows 2000以后各版本操作系统及服务包的绝大部分符号。</p>
+<p>WinDbg较新版本作为免费的Debugging Tools for Windows包的组成部分被发行，在WinDbg与命令行调试器前端如KD，CDB，NTSD之间共享了同一个调试器后端。</p>
+<h1 id="Setup-symbols-search-path"><a href="#Setup-symbols-search-path" class="headerlink" title="Setup symbols search path"></a>Setup symbols search path</h1><p>Open File -&gt; Symble File Path, fill up with:</p>
+<p>C:\myProgramPDB;C:\Windows\symbols;srv<em>D:\localsymbols</em><a href="http://msdl.microsoft.com/download/symbols" target="_blank" rel="noopener">http://msdl.microsoft.com/download/symbols</a></p>
+<p>This includes your app symbols path and system symbols path.</p>
+<p>srv<em>E:\mysymbols</em><a href="http://msdl.microsoft.com/download/symbols" target="_blank" rel="noopener">http://msdl.microsoft.com/download/symbols</a></p>
+<h1 id="Analyze-the-core-dump-file"><a href="#Analyze-the-core-dump-file" class="headerlink" title="Analyze the core dump file"></a>Analyze the core dump file</h1><p>Open File -&gt; Open Crash Dump, browser the dmp file you wish to analyze:</p>
+<p>C:\Windows\LiveKernelReports\WATCHDOG\WD-20210702-0011.dmp<br>C:\Windows\LiveKernelReports\WATCHDOG\WD-20210629-2245.dmp</p>
+<p>then wait some minutes(windbg will download symbols from the internet).</p>
+<p>When windbgt is ready, run “!analyze -v” commmand to let windbg do some auto analyze job…</p>
+<p>kb : Displays the first three parameters that are passed to each function in the stack trace<br>kc : Displays a clean stack trace. Each display line includes only the module name and the function name</p>
+<p>.ecxr : displays the context record that is associated with the current exception<br>~ :  查看系统当前线程，使用<del>*s命令切换线程，如需要切换到8号线程，可以使用命令：</del>8s</p>
+<h1 id="Learn-more"><a href="#Learn-more" class="headerlink" title="Learn more"></a>Learn more</h1><p>Windbg使用简明指南 <a href="https://www.cnblogs.com/daoyuly/p/3570037.html" target="_blank" rel="noopener">https://www.cnblogs.com/daoyuly/p/3570037.html</a> </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dbaspider.github.io/2021/07/03/Common-usage-of-WinDbg/" data-id="ckqnao7bk0003vgv9hhdy5lg8" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/windbg-usage-Windows-debug-tool/" rel="tag">windbg usage Windows debug tool</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Android-Studio-Gradle-构建失败：内存不足" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2021/06/20/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5%EF%BC%9A%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3/" class="article-date">
@@ -96,7 +199,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Android-Studio-Gradle-Build-failed-with-following-message-in-the-log"><a href="#Android-Studio-Gradle-Build-failed-with-following-message-in-the-log" class="headerlink" title="Android Studio Gradle Build failed with following message in the log:"></a>Android Studio Gradle Build failed with following message in the log:</h1><p> …<br>      at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.lambda$run$0(DefaultPlanExecutor.java:127)<br>      at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:191)<br>      at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.executeNextNode(DefaultPlanExecutor.java:182)<br>      at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:124)<br>      at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)<br>      at org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:48)<br>      at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)<br>      at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)<br>      at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:56)<br>      at java.lang.Thread.run(Thread.java:748)<br>  Caused by: java.lang.OutOfMemoryError: Metaspace</p>
+        <h1 id="Android-Studio-Gradle-Build-failed-with-following-message-in-the-log"><a href="#Android-Studio-Gradle-Build-failed-with-following-message-in-the-log" class="headerlink" title="Android Studio Gradle Build failed with following message in the log:"></a>Android Studio Gradle Build failed with following message in the log:</h1><blockquote>
+<p>Task :AndroidBootstrap:extractDebugAnnotations<br>Task :AndroidBootstrap:mergeDebugGeneratedProguardFiles UP-TO-DATE<br>Task :AndroidBootstrap:mergeDebugConsumerProguardFiles UP-TO-DATE<br>Task :AndroidBootstrap:syncDebugLibJars<br>Task :AndroidBootstrap:bundleDebugAar<br>Task :AndroidBootstrap:compileDebugSources<br>Task :AndroidBootstrap:assembleDebug<br>Task :AndroidBootstrap:parseReleaseLocalResources<br>Task :AndroidBootstrap:writeReleaseAarMetadata<br>Task :AndroidBootstrap:verifyReleaseResources<br>Task :AndroidBootstrap:bundleLibResDebug NO-SOURCE<br>Task :AndroidBootstrap:generateReleaseRFile<br>Daemon will be stopped at the end of the build after running out of JVM memory<br>Task :AndroidBootstrap:bundleLibRuntimeToJarDebug<br>Task :AndroidBootstrap:compileReleaseJavaWithJavac </p>
+</blockquote>
+<p>…<br>      at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.lambda$run$0(DefaultPlanExecutor.java:127)<br>      at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:191)<br>      at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.executeNextNode(DefaultPlanExecutor.java:182)<br>      at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:124)<br>      at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)<br>      at org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:48)<br>      at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)<br>      at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)<br>      at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:56)<br>      at java.lang.Thread.run(Thread.java:748)<br>  Caused by: java.lang.OutOfMemoryError: Metaspace</p>
 <ul>
 <li><p>Try:<br>Run with –stacktrace option to get the stack trace. Run with –info or –debug option to get more log output. Run with –scan to get full insights.</p>
 </li>
@@ -509,118 +615,6 @@
 
 
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2021/01/09/hello-world/" class="article-date">
-  <time datetime="2021-01-09T15:29:41.125Z" itemprop="datePublished">2021-01-09</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/01/09/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://dbaspider.github.io/2021/01/09/hello-world/" data-id="ckjsq9lyi000bf0v9fxsf9teg" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-必须了解的五个服务器基础问题" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/02/29/%E5%BF%85%E9%A1%BB%E4%BA%86%E8%A7%A3%E7%9A%84%E4%BA%94%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9F%BA%E7%A1%80%E9%97%AE%E9%A2%98/" class="article-date">
-  <time datetime="2020-02-29T09:20:08.000Z" itemprop="datePublished">2020-02-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/02/29/%E5%BF%85%E9%A1%BB%E4%BA%86%E8%A7%A3%E7%9A%84%E4%BA%94%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9F%BA%E7%A1%80%E9%97%AE%E9%A2%98/">必须了解的五个服务器基础问题</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天我们来说说服务器基础知识方面的几个问题，也是困惑初涉服务器领域众“菜鸟”们的几个常见问题:</p>
-<h3 id="1、双路等于双核么"><a href="#1、双路等于双核么" class="headerlink" title="1、双路等于双核么?"></a>1、双路等于双核么?</h3><p>问题:常听说双路至强XX式服务器，最近又出现了双核至强，都是两个CPU，是不是双路等于双核?</p>
-<p>答案:不是</p>
-<p>无论服务器的单路、双路、四路乃至八路，其中的“路”都是指服务器物理CPU的数量，也就是服务器主板上CPU插槽的数量。</p>
-<p>最近出现的双核处理器，是在一颗物理CPU内部封装了两个CPU核心，这样的好处在于能够让用户在成本增加不多的前提下，拥有更强劲的性能。而且能够比较显著的降低性能功耗比，这对企业用户节约使用成本也有积极的意义。</p>
-<h3 id="2、至强与奔腾的区别"><a href="#2、至强与奔腾的区别" class="headerlink" title="2、至强与奔腾的区别"></a>2、至强与奔腾的区别</h3><p>问题:在不少服务器中，有拿至强作处理器的，也有拿奔腾4当作处理器的，除了用奔腾4处理器的服务器产品呢便宜些，至强与奔腾还有什么区别?</p>
-<p>Intel 奔腾4 631 3.0GHz(盒)</p>
-<p>Intel Xeon 3.2G(800MHz/2M/盒)</p>
-<p>答案:服务器上用的至强处理器和普通的P4处理器其内核基本上是一样的。</p>
-<p>区别之一是英特尔奔腾4处理器开始，便将奔腾4处理器归为个人处理器，用户不能以2颗奔腾4处理器来构架2路服务器系统，而开发出运算效能更高的至强处理器。至强处理器目前分为至强DP(最大支持双路处理)和至强MP(最大支持8路处理)。</p>
-<p>区别之二就是二级缓存不同。至强的二级缓存是1MB～16MB，P4的二级缓存是512KB～1MB，而二级缓存的容量也是决定服务器处理效能的重要因素。</p>
-<p>至强系列CPU多为604接口，而P4的CPU，多为478针或是775架构。</p>
-<p>注:在X86架构下，服务器除了使用英特尔奔腾、至强系列处理器外，AMD也为服务器提供了专门的处理器-皓龙Opteron，最大可支持8路。</p>
-<p>AMD Opteron皓龙 865(散)</p>
-<h3 id="3、服务器的几种类型"><a href="#3、服务器的几种类型" class="headerlink" title="3、服务器的几种类型"></a>3、服务器的几种类型</h3><p>问题:服务器按照结构划分，有几种类型?</p>
-<p>答案:目前按照外形结构划分，服务器可分为塔式、机架式、刀片式三种类型。</p>
-<h5 id="■-塔式服务器"><a href="#■-塔式服务器" class="headerlink" title="■ 塔式服务器"></a>■ 塔式服务器</h5><p>一般的塔式服务器机箱和我们常用的PC机箱差不多，而大型的塔式机箱就要粗大很多，总的来说外形尺寸没有固定标准。</p>
-<h5 id="■-机架式服务器"><a href="#■-机架式服务器" class="headerlink" title="■ 机架式服务器"></a>■ 机架式服务器</h5><p>机架式服务器是由于满足企业的密集部署，形成的以19英寸机架作为标准宽度的服务器类型，高度则从1U到数U。将服务器放置到机架上，并不仅仅有利于日常的维护及治理，也可能避免意想不到的故障。首先，放置服务器不占用过多空间。机架服务器整洁地排放在机架中，不会浪费空间。其次，连接线等也能够整洁地收放到机架里。电源线和LAN线等全都能在机柜中布好线，可以减少堆积在地面上的连接线，从而防止脚踢掉电线等事故的发生。</p>
-<p>规定的尺寸是服务器的宽(48.26cm=19英寸)与高(4.445cm的倍数)。由于宽为19英寸，所以有时也将满足这一规定的机架称为“19英寸机架”。</p>
-<h5 id="■-刀片式服务器"><a href="#■-刀片式服务器" class="headerlink" title="■ 刀片式服务器"></a>■ 刀片式服务器</h5><p>刀片服务器是一种HAHD(High Availability High Density，高可用高密度)的低成本服务器平台，是专门为非凡应用行业和高密度计算机环境设计的，其中每一块“刀片”实际上就是一块系统母板，类似于一个个独立的服务器。在这种模式下，每一个母板运行自己的系统，服务于指定的不同用户群，相互之间没有关联。不过可以使用系统软件将这些母板集合成一个服务器集群。在集群模式下，所有的母板可以连接起来提供高速的网络环境，可以共享资源，为相同的用户群服务。</p>
-<h3 id="4、“U”是什么"><a href="#4、“U”是什么" class="headerlink" title="4、“U”是什么?"></a>4、“U”是什么?</h3><p>问题:平常说1U、2U服务器中的“U”是什么意思?是指服务器处理器个数么?</p>
-<p>答案:“U”在服务器领域中特指机架式服务器厚度，是一种表示服务器外部尺寸的单位，是unit的缩略语，具体尺寸由作为业界团体的美国电子工业协会(EIA)决定。</p>
-<p>之所以要规定服务器的尺寸，是为了使服务器保持适当的尺寸以便放在铁质或铝质机架上。机架上有固定服务器的螺孔，将它与服务器的螺孔对好，用螺丝加以固定。</p>
-<p>厚度以4.445cm为基本单位。1U就是4.445cm，2U则是1U的2倍为8.89cm。也就是说，所谓“1U的机架式服务器”，就是外形满足EIA规格、厚度为4.445cm的产品。</p>
-<h3 id="5、服务器与工作站的区别是什么"><a href="#5、服务器与工作站的区别是什么" class="headerlink" title="5、服务器与工作站的区别是什么?"></a>5、服务器与工作站的区别是什么?</h3><p>问题:服务器与工作站的区别是什么?</p>
-<p>服务器是给工作站提供各种服务的，网络通信服务，文件共享服务，硬件共享服务，各种资源服务。工作站在获取服务器各种资源的同时也可以帮服务器分流计算等任务。</p>
-<p>服务器和工作站都是高性能的计算机，只是相对而言服务器专注于数据吞吐能力，所以支持的外设(硬盘、I/O插槽等)更多;而工作站则专注于图形处理能力，所以外设则相对少一些，但采用非凡为图形处理设计的架构，采用高档显示卡，支持3D图像处理。工作站主要应用在各种设计、多媒体制作领域。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://dbaspider.github.io/2020/02/29/%E5%BF%85%E9%A1%BB%E4%BA%86%E8%A7%A3%E7%9A%84%E4%BA%94%E4%B8%AA%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9F%BA%E7%A1%80%E9%97%AE%E9%A2%98/" data-id="ckjsq9lyk000df0v99eyi96pk" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
@@ -639,7 +633,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio-4-2-%E5%8D%87%E7%BA%A7-%E9%97%AE%E9%A2%98-%E6%A1%88%E4%BE%8B/" rel="tag">Android Studio 4.2 升级 问题 案例</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5-%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3-OutOfMemoryError-Metaspace/" rel="tag">Android Studio Gradle 构建失败 内存不足 OutOfMemoryError Metaspace</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio-IntelliJ-IDEA-JAVA-%E4%B8%AD%E6%96%87-%E4%B9%B1%E7%A0%81-%E6%8E%A7%E5%88%B6%E5%8F%B0/" rel="tag">Android Studio IntelliJ IDEA JAVA 中文 乱码 控制台</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BeyondCompare-winrar-v5/" rel="tag">BeyondCompare winrar v5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KiB-KB-Kb-MiB-GiB-MB-GB/" rel="tag">KiB KB Kb MiB GiB MB GB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA-%E8%A7%A3%E9%94%81-ROOT-BOOTLOADER-UNLOCK-TWRP/" rel="tag">华为手机 解锁 ROOT BOOTLOADER UNLOCK TWRP</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio-4-2-%E5%8D%87%E7%BA%A7-%E9%97%AE%E9%A2%98-%E6%A1%88%E4%BE%8B/" rel="tag">Android Studio 4.2 升级 问题 案例</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA-%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/" rel="tag">Android Studio Gradle 构建 依赖冲突</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5-%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3-OutOfMemoryError-Metaspace/" rel="tag">Android Studio Gradle 构建失败 内存不足 OutOfMemoryError Metaspace</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio-IntelliJ-IDEA-JAVA-%E4%B8%AD%E6%96%87-%E4%B9%B1%E7%A0%81-%E6%8E%A7%E5%88%B6%E5%8F%B0/" rel="tag">Android Studio IntelliJ IDEA JAVA 中文 乱码 控制台</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BeyondCompare-winrar-v5/" rel="tag">BeyondCompare winrar v5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KiB-KB-Kb-MiB-GiB-MB-GB/" rel="tag">KiB KB Kb MiB GiB MB GB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windbg-usage-Windows-debug-tool/" rel="tag">windbg usage Windows debug tool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA-%E8%A7%A3%E9%94%81-ROOT-BOOTLOADER-UNLOCK-TWRP/" rel="tag">华为手机 解锁 ROOT BOOTLOADER UNLOCK TWRP</a></li></ul>
     </div>
   </div>
 
@@ -649,7 +643,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Android-Studio-4-2-%E5%8D%87%E7%BA%A7-%E9%97%AE%E9%A2%98-%E6%A1%88%E4%BE%8B/" style="font-size: 10px;">Android Studio 4.2 升级 问题 案例</a> <a href="/tags/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5-%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3-OutOfMemoryError-Metaspace/" style="font-size: 10px;">Android Studio Gradle 构建失败 内存不足 OutOfMemoryError Metaspace</a> <a href="/tags/Android-Studio-IntelliJ-IDEA-JAVA-%E4%B8%AD%E6%96%87-%E4%B9%B1%E7%A0%81-%E6%8E%A7%E5%88%B6%E5%8F%B0/" style="font-size: 10px;">Android Studio IntelliJ IDEA JAVA 中文 乱码 控制台</a> <a href="/tags/BeyondCompare-winrar-v5/" style="font-size: 10px;">BeyondCompare winrar v5</a> <a href="/tags/KiB-KB-Kb-MiB-GiB-MB-GB/" style="font-size: 10px;">KiB KB Kb MiB GiB MB GB</a> <a href="/tags/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA-%E8%A7%A3%E9%94%81-ROOT-BOOTLOADER-UNLOCK-TWRP/" style="font-size: 10px;">华为手机 解锁 ROOT BOOTLOADER UNLOCK TWRP</a>
+      <a href="/tags/Android-Studio-4-2-%E5%8D%87%E7%BA%A7-%E9%97%AE%E9%A2%98-%E6%A1%88%E4%BE%8B/" style="font-size: 10px;">Android Studio 4.2 升级 问题 案例</a> <a href="/tags/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA-%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/" style="font-size: 10px;">Android Studio Gradle 构建 依赖冲突</a> <a href="/tags/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5-%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3-OutOfMemoryError-Metaspace/" style="font-size: 10px;">Android Studio Gradle 构建失败 内存不足 OutOfMemoryError Metaspace</a> <a href="/tags/Android-Studio-IntelliJ-IDEA-JAVA-%E4%B8%AD%E6%96%87-%E4%B9%B1%E7%A0%81-%E6%8E%A7%E5%88%B6%E5%8F%B0/" style="font-size: 10px;">Android Studio IntelliJ IDEA JAVA 中文 乱码 控制台</a> <a href="/tags/BeyondCompare-winrar-v5/" style="font-size: 10px;">BeyondCompare winrar v5</a> <a href="/tags/KiB-KB-Kb-MiB-GiB-MB-GB/" style="font-size: 10px;">KiB KB Kb MiB GiB MB GB</a> <a href="/tags/windbg-usage-Windows-debug-tool/" style="font-size: 10px;">windbg usage Windows debug tool</a> <a href="/tags/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA-%E8%A7%A3%E9%94%81-ROOT-BOOTLOADER-UNLOCK-TWRP/" style="font-size: 10px;">华为手机 解锁 ROOT BOOTLOADER UNLOCK TWRP</a>
     </div>
   </div>
 
@@ -658,7 +652,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
     </div>
   </div>
 
@@ -671,6 +665,14 @@
       <ul>
         
           <li>
+            <a href="/2021/07/03/Android-Studio-Gradle%E6%9E%84%E5%BB%BA%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81%E7%9A%84%E5%88%86%E6%9E%90%E5%92%8C%E8%A7%A3%E5%86%B3/">Android Studio Gradle构建依赖冲突的分析和解决</a>
+          </li>
+        
+          <li>
+            <a href="/2021/07/03/Common-usage-of-WinDbg/">WinDbg一般用法(Common usage of WinDbg)</a>
+          </li>
+        
+          <li>
             <a href="/2021/06/20/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5%EF%BC%9A%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3/">Android Studio Gradle 构建失败：内存不足</a>
           </li>
         
@@ -680,14 +682,6 @@
         
           <li>
             <a href="/2021/06/15/Android-Studio-4-2%E5%8D%87%E7%BA%A7%E5%90%8E%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86%E6%A1%88%E4%BE%8B%E4%B8%A4%E5%88%99/">Android Studio 4.2升级后问题处理案例集锦</a>
-          </li>
-        
-          <li>
-            <a href="/2021/04/26/KiB%E3%80%81KB%E5%92%8CKb%E5%82%BB%E5%82%BB%E5%88%86%E4%B8%8D%E6%B8%85%EF%BC%9F/">KiB、KB和Kb傻傻分不清？</a>
-          </li>
-        
-          <li>
-            <a href="/2021/04/13/%E8%AE%A9BeyondCompare3%E6%94%AF%E6%8C%81%E6%96%B0%E7%89%88%E6%9C%AC%E7%9A%84rar%E5%8E%8B%E7%BC%A9%E6%96%87%E6%A1%A3/">如何让BeyondCompare3支持新版本的rar压缩文档</a>
           </li>
         
       </ul>

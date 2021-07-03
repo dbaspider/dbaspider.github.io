@@ -74,6 +74,94 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Hexo系列-1-介绍" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/09/Hexo%E7%B3%BB%E5%88%97-1-%E4%BB%8B%E7%BB%8D/" class="article-date">
+  <time datetime="2020-02-08T16:21:46.000Z" itemprop="datePublished">2020-02-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/09/Hexo%E7%B3%BB%E5%88%97-1-%E4%BB%8B%E7%BB%8D/">Hexo系列-1: 介绍</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Hexo是一个快速、简洁且高效的博客框架，基于Node.js开发。生成的blog页面也是静态的，非常适合于github这种无法后台动态渲染纯静态资源页面的托管网站。具有下面几个特点：</p>
+<h2 id="超快速度"><a href="#超快速度" class="headerlink" title="超快速度"></a>超快速度</h2><p>Node.js 所带来的超快生成速度，让上百个页面在几秒内瞬间完成渲染。</p>
+<h2 id="支持-Markdown"><a href="#支持-Markdown" class="headerlink" title="支持 Markdown"></a>支持 Markdown</h2><p>Hexo 支持 GitHub Flavored Markdown 的所有功能，甚至可以整合 Octopress 的大多数插件。</p>
+<h2 id="一键部署"><a href="#一键部署" class="headerlink" title="一键部署"></a>一键部署</h2><p>只需一条指令即可部署到 GitHub Pages, Heroku 或其他平台。</p>
+<h2 id="插件和可扩展性"><a href="#插件和可扩展性" class="headerlink" title="插件和可扩展性"></a>插件和可扩展性</h2><p>强大的 API 带来无限的可能，与数种模板引擎（EJS，Pug，Nunjucks）和工具（Babel，PostCSS，Less/Sass）轻易集成</p>
+<h2 id="丰富的theme资源"><a href="#丰富的theme资源" class="headerlink" title="丰富的theme资源"></a>丰富的theme资源</h2><p>众多Hexo的使用者和开发者已经创作了几百款主题，必有一款适合你。不满意的话，你可以使用任何兼容的模板引擎创建自己的主题。</p>
+<p>安装准备：<br>1、Node.js:<br><a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">https://nodejs.org/en/download/</a></p>
+<p>2、Git 工具:<br><a href="https://git-scm.com/download/win" target="_blank" rel="noopener">https://git-scm.com/download/win</a></p>
+<p>3、GitHub 注册账号:<br><a href="https://github.com/" target="_blank" rel="noopener">https://github.com/</a></p>
+<p>下一篇介绍安装和配置~</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dbaspider.github.io/2020/02/09/Hexo%E7%B3%BB%E5%88%97-1-%E4%BB%8B%E7%BB%8D/" data-id="ckjsq9ly50002f0v91snuaxc5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-解决git-pull-push每次都需要输入密码问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/02/06/%E8%A7%A3%E5%86%B3git-pull-push%E6%AF%8F%E6%AC%A1%E9%83%BD%E9%9C%80%E8%A6%81%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2020-02-06T14:49:33.000Z" itemprop="datePublished">2020-02-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/02/06/%E8%A7%A3%E5%86%B3git-pull-push%E6%AF%8F%E6%AC%A1%E9%83%BD%E9%9C%80%E8%A6%81%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81%E9%97%AE%E9%A2%98/">解决git pull push每次都需要输入密码问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>如果git clone的下载代码的时候是连接的https://而不是git@git (ssh)的形式，当操作git pull/push到远程的时候，总是提示输入账号和密码才能操作成功，频繁的输入账号和密码会很麻烦。</p>
+<p>解决办法：</p>
+<p>git bash进入你的项目目录，输入：</p>
+<p>git config –global credential.helper store</p>
+<p>然后会在本地生成一个文本，上边记录你的账号和密码。当然这些你可以不用关心。</p>
+<p>然后你使用上述的命令配置好之后，再操作一次git pull，然后它会提示你输入账号密码，这一次之后就不需要再次输入密码了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://dbaspider.github.io/2020/02/06/%E8%A7%A3%E5%86%B3git-pull-push%E6%AF%8F%E6%AC%A1%E9%83%BD%E9%9C%80%E8%A6%81%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81%E9%97%AE%E9%A2%98/" data-id="ckjsq9lyj000cf0v9go1uhyf7" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-test-my-site" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/02/06/test-my-site/" class="article-date">
@@ -128,7 +216,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio-4-2-%E5%8D%87%E7%BA%A7-%E9%97%AE%E9%A2%98-%E6%A1%88%E4%BE%8B/" rel="tag">Android Studio 4.2 升级 问题 案例</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5-%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3-OutOfMemoryError-Metaspace/" rel="tag">Android Studio Gradle 构建失败 内存不足 OutOfMemoryError Metaspace</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio-IntelliJ-IDEA-JAVA-%E4%B8%AD%E6%96%87-%E4%B9%B1%E7%A0%81-%E6%8E%A7%E5%88%B6%E5%8F%B0/" rel="tag">Android Studio IntelliJ IDEA JAVA 中文 乱码 控制台</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BeyondCompare-winrar-v5/" rel="tag">BeyondCompare winrar v5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KiB-KB-Kb-MiB-GiB-MB-GB/" rel="tag">KiB KB Kb MiB GiB MB GB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA-%E8%A7%A3%E9%94%81-ROOT-BOOTLOADER-UNLOCK-TWRP/" rel="tag">华为手机 解锁 ROOT BOOTLOADER UNLOCK TWRP</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio-4-2-%E5%8D%87%E7%BA%A7-%E9%97%AE%E9%A2%98-%E6%A1%88%E4%BE%8B/" rel="tag">Android Studio 4.2 升级 问题 案例</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA-%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/" rel="tag">Android Studio Gradle 构建 依赖冲突</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5-%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3-OutOfMemoryError-Metaspace/" rel="tag">Android Studio Gradle 构建失败 内存不足 OutOfMemoryError Metaspace</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android-Studio-IntelliJ-IDEA-JAVA-%E4%B8%AD%E6%96%87-%E4%B9%B1%E7%A0%81-%E6%8E%A7%E5%88%B6%E5%8F%B0/" rel="tag">Android Studio IntelliJ IDEA JAVA 中文 乱码 控制台</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/BeyondCompare-winrar-v5/" rel="tag">BeyondCompare winrar v5</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/KiB-KB-Kb-MiB-GiB-MB-GB/" rel="tag">KiB KB Kb MiB GiB MB GB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/windbg-usage-Windows-debug-tool/" rel="tag">windbg usage Windows debug tool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA-%E8%A7%A3%E9%94%81-ROOT-BOOTLOADER-UNLOCK-TWRP/" rel="tag">华为手机 解锁 ROOT BOOTLOADER UNLOCK TWRP</a></li></ul>
     </div>
   </div>
 
@@ -138,7 +226,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Android-Studio-4-2-%E5%8D%87%E7%BA%A7-%E9%97%AE%E9%A2%98-%E6%A1%88%E4%BE%8B/" style="font-size: 10px;">Android Studio 4.2 升级 问题 案例</a> <a href="/tags/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5-%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3-OutOfMemoryError-Metaspace/" style="font-size: 10px;">Android Studio Gradle 构建失败 内存不足 OutOfMemoryError Metaspace</a> <a href="/tags/Android-Studio-IntelliJ-IDEA-JAVA-%E4%B8%AD%E6%96%87-%E4%B9%B1%E7%A0%81-%E6%8E%A7%E5%88%B6%E5%8F%B0/" style="font-size: 10px;">Android Studio IntelliJ IDEA JAVA 中文 乱码 控制台</a> <a href="/tags/BeyondCompare-winrar-v5/" style="font-size: 10px;">BeyondCompare winrar v5</a> <a href="/tags/KiB-KB-Kb-MiB-GiB-MB-GB/" style="font-size: 10px;">KiB KB Kb MiB GiB MB GB</a> <a href="/tags/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA-%E8%A7%A3%E9%94%81-ROOT-BOOTLOADER-UNLOCK-TWRP/" style="font-size: 10px;">华为手机 解锁 ROOT BOOTLOADER UNLOCK TWRP</a>
+      <a href="/tags/Android-Studio-4-2-%E5%8D%87%E7%BA%A7-%E9%97%AE%E9%A2%98-%E6%A1%88%E4%BE%8B/" style="font-size: 10px;">Android Studio 4.2 升级 问题 案例</a> <a href="/tags/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA-%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/" style="font-size: 10px;">Android Studio Gradle 构建 依赖冲突</a> <a href="/tags/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5-%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3-OutOfMemoryError-Metaspace/" style="font-size: 10px;">Android Studio Gradle 构建失败 内存不足 OutOfMemoryError Metaspace</a> <a href="/tags/Android-Studio-IntelliJ-IDEA-JAVA-%E4%B8%AD%E6%96%87-%E4%B9%B1%E7%A0%81-%E6%8E%A7%E5%88%B6%E5%8F%B0/" style="font-size: 10px;">Android Studio IntelliJ IDEA JAVA 中文 乱码 控制台</a> <a href="/tags/BeyondCompare-winrar-v5/" style="font-size: 10px;">BeyondCompare winrar v5</a> <a href="/tags/KiB-KB-Kb-MiB-GiB-MB-GB/" style="font-size: 10px;">KiB KB Kb MiB GiB MB GB</a> <a href="/tags/windbg-usage-Windows-debug-tool/" style="font-size: 10px;">windbg usage Windows debug tool</a> <a href="/tags/%E5%8D%8E%E4%B8%BA%E6%89%8B%E6%9C%BA-%E8%A7%A3%E9%94%81-ROOT-BOOTLOADER-UNLOCK-TWRP/" style="font-size: 10px;">华为手机 解锁 ROOT BOOTLOADER UNLOCK TWRP</a>
     </div>
   </div>
 
@@ -147,7 +235,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/07/">July 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">June 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">January 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li></ul>
     </div>
   </div>
 
@@ -160,6 +248,14 @@
       <ul>
         
           <li>
+            <a href="/2021/07/03/Android-Studio-Gradle%E6%9E%84%E5%BB%BA%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81%E7%9A%84%E5%88%86%E6%9E%90%E5%92%8C%E8%A7%A3%E5%86%B3/">Android Studio Gradle构建依赖冲突的分析和解决</a>
+          </li>
+        
+          <li>
+            <a href="/2021/07/03/Common-usage-of-WinDbg/">WinDbg一般用法(Common usage of WinDbg)</a>
+          </li>
+        
+          <li>
             <a href="/2021/06/20/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5%EF%BC%9A%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3/">Android Studio Gradle 构建失败：内存不足</a>
           </li>
         
@@ -169,14 +265,6 @@
         
           <li>
             <a href="/2021/06/15/Android-Studio-4-2%E5%8D%87%E7%BA%A7%E5%90%8E%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86%E6%A1%88%E4%BE%8B%E4%B8%A4%E5%88%99/">Android Studio 4.2升级后问题处理案例集锦</a>
-          </li>
-        
-          <li>
-            <a href="/2021/04/26/KiB%E3%80%81KB%E5%92%8CKb%E5%82%BB%E5%82%BB%E5%88%86%E4%B8%8D%E6%B8%85%EF%BC%9F/">KiB、KB和Kb傻傻分不清？</a>
-          </li>
-        
-          <li>
-            <a href="/2021/04/13/%E8%AE%A9BeyondCompare3%E6%94%AF%E6%8C%81%E6%96%B0%E7%89%88%E6%9C%AC%E7%9A%84rar%E5%8E%8B%E7%BC%A9%E6%96%87%E6%A1%A3/">如何让BeyondCompare3支持新版本的rar压缩文档</a>
           </li>
         
       </ul>

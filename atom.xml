@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dbaspider.github.io/"/>
-  <updated>2021-06-19T16:07:08.230Z</updated>
+  <updated>2021-07-03T04:57:08.290Z</updated>
   <id>https://dbaspider.github.io/</id>
   
   <author>
@@ -17,13 +17,61 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Android Studio Gradle构建依赖冲突的分析和解决</title>
+    <link href="https://dbaspider.github.io/2021/07/03/Android-Studio-Gradle%E6%9E%84%E5%BB%BA%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81%E7%9A%84%E5%88%86%E6%9E%90%E5%92%8C%E8%A7%A3%E5%86%B3/"/>
+    <id>https://dbaspider.github.io/2021/07/03/Android-Studio-Gradle%E6%9E%84%E5%BB%BA%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81%E7%9A%84%E5%88%86%E6%9E%90%E5%92%8C%E8%A7%A3%E5%86%B3/</id>
+    <published>2021-07-03T04:34:21.000Z</published>
+    <updated>2021-07-03T04:57:08.290Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="问题介绍"><a href="#问题介绍" class="headerlink" title="问题介绍"></a>问题介绍</h1><p>如果App或者库依赖了很多第三方组件库，那么依赖冲突就再所难免。不同版本的库混在在一起，明显的冲突会导致编译过程中就报错。<br>不明显的隐含冲突更为严重，因为可以正常构建出app包，但报错可能会在app运行时出现，更加难以处理。</p><p>例如下面是构建时的一个报错：</p><p>build.gradle: Error: All com.android.support libraries must use the exact same version specification (mixing versions can lead to runtime crashes). Found versions 28.0.0, 27.1.0. Examples include com.android.support:animated-vector-drawable:28.0.0 and com.android.support:exifinterface:27.1.0 [GradleCompatible]</p><h1 id="分析哪些库版本冲突了"><a href="#分析哪些库版本冲突了" class="headerlink" title="分析哪些库版本冲突了"></a>分析哪些库版本冲突了</h1><p>简单项目可能人工查看就能定位到，但一般项目都依赖了很多三方组件，人工分析查看就无能为力了。实际上Gradle提供了依赖查看树命令，可以方便的将项目中的全部依赖以tree的形式展现出来，非常便于查看：</p><p>查看全部配置下的依赖树：<br>gradlew -q dependencies app:dependencies</p><p>查看某个具体配置下的依赖树：<br>gradlew -q dependencies app:dependencies –configuration debugAndroidTestCompileClasspath<br>gradlew -q dependencies app:dependencies –configuration debugUnitTestCompileClasspath<br>gradlew -q dependencies app:dependencies –configuration debugCompileClasspath</p><p>gradlew -q dependencies app:dependencies –configuration releaseCompileClasspath<br>gradlew -q dependencies app:dependencies –configuration releaseUnitTestCompileClasspath<br>gradlew -q dependencies app:dependencies –configuration releaseRuntimeClasspath</p><h1 id="如何解决冲突"><a href="#如何解决冲突" class="headerlink" title="如何解决冲突"></a>如何解决冲突</h1><h3 id="1-通过-DependencyResolve-强制修改版本"><a href="#1-通过-DependencyResolve-强制修改版本" class="headerlink" title="1. 通过 DependencyResolve 强制修改版本"></a>1. 通过 DependencyResolve 强制修改版本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">configurations.all &#123;</span><br><span class="line">    resolutionStrategy.eachDependency &#123; DependencyResolveDetails details -&gt;</span><br><span class="line">        def requested &#x3D; details.requested</span><br><span class="line">        if (requested.group &#x3D;&#x3D; &#39;com.android.support&#39;) &#123;</span><br><span class="line">            if (!requested.name.startsWith(&quot;multidex&quot;)) &#123;</span><br><span class="line">                details.useVersion &#39;28.0.0&#39;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="2-通过-exclude-排除有问题的版本依赖"><a href="#2-通过-exclude-排除有问题的版本依赖" class="headerlink" title="2. 通过 exclude 排除有问题的版本依赖"></a>2. 通过 exclude 排除有问题的版本依赖</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">androidTestCompile(&#39;com.android.support.test.espresso:espresso-core:2.2.2&#39;, &#123;</span><br><span class="line">        exclude group: &#39;com.android.support&#39;, module: &#39;support-annotations&#39;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">implementation(&#39;com.facebook.android:facebook-login:[4,5)&#39;) &#123;</span><br><span class="line">    &#x2F;&#x2F; contains com.android.support:v7:27.0.2, included required com.android.support.*:27.1.1 modules</span><br><span class="line">    exclude group: &#39;com.android.support&#39;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;问题介绍&quot;&gt;&lt;a href=&quot;#问题介绍&quot; class=&quot;headerlink&quot; title=&quot;问题介绍&quot;&gt;&lt;/a&gt;问题介绍&lt;/h1&gt;&lt;p&gt;如果App或者库依赖了很多第三方组件库，那么依赖冲突就再所难免。不同版本的库混在在一起，明显的冲突会导致编译过程中就报错。&lt;
+      
+    
+    </summary>
+    
+    
+    
+      <category term="Android Studio Gradle 构建 依赖冲突" scheme="https://dbaspider.github.io/tags/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA-%E4%BE%9D%E8%B5%96%E5%86%B2%E7%AA%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>WinDbg一般用法(Common usage of WinDbg)</title>
+    <link href="https://dbaspider.github.io/2021/07/03/Common-usage-of-WinDbg/"/>
+    <id>https://dbaspider.github.io/2021/07/03/Common-usage-of-WinDbg/</id>
+    <published>2021-07-03T03:47:53.000Z</published>
+    <updated>2021-07-03T04:32:39.914Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="What-is-windbg"><a href="#What-is-windbg" class="headerlink" title="What is windbg?"></a>What is windbg?</h1><p>windbg (formally name is Debugging Tools for Windows).<br>The Windows Debugger (WinDbg) can be used to debug kernel-mode and user-mode code, analyze crash dumps, and examine the CPU registers while the code executes.</p><p>You can get it from <a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools</a></p><p>WinDbg是Microsoft Windows上的多用途调试器，可从微软网站上免费下载安装使用。可用于调试用户态下的应用程序、驱动程序，以及核心态下的操作系统自身。该软件是GUI界面，但与更为著名但功能稍弱的Visual Studio Debugger几乎完全不同。</p><p>WinDbg看调试核心态或用户态下的内存卸载文件。</p><p>WinDbg能从服务器自动装载匹配的调试符号文件，如PDB文件。调试符号文件在源代码文件与二进制可执行程序之间创建对应。Microsoft的公开的符号服务器提供了Windows 2000以后各版本操作系统及服务包的绝大部分符号。</p><p>WinDbg较新版本作为免费的Debugging Tools for Windows包的组成部分被发行，在WinDbg与命令行调试器前端如KD，CDB，NTSD之间共享了同一个调试器后端。</p><h1 id="Setup-symbols-search-path"><a href="#Setup-symbols-search-path" class="headerlink" title="Setup symbols search path"></a>Setup symbols search path</h1><p>Open File -&gt; Symble File Path, fill up with:</p><p>C:\myProgramPDB;C:\Windows\symbols;srv<em>D:\localsymbols</em><a href="http://msdl.microsoft.com/download/symbols" target="_blank" rel="noopener">http://msdl.microsoft.com/download/symbols</a></p><p>This includes your app symbols path and system symbols path.</p><p>srv<em>E:\mysymbols</em><a href="http://msdl.microsoft.com/download/symbols" target="_blank" rel="noopener">http://msdl.microsoft.com/download/symbols</a></p><h1 id="Analyze-the-core-dump-file"><a href="#Analyze-the-core-dump-file" class="headerlink" title="Analyze the core dump file"></a>Analyze the core dump file</h1><p>Open File -&gt; Open Crash Dump, browser the dmp file you wish to analyze:</p><p>C:\Windows\LiveKernelReports\WATCHDOG\WD-20210702-0011.dmp<br>C:\Windows\LiveKernelReports\WATCHDOG\WD-20210629-2245.dmp</p><p>then wait some minutes(windbg will download symbols from the internet).</p><p>When windbgt is ready, run “!analyze -v” commmand to let windbg do some auto analyze job…</p><p>kb : Displays the first three parameters that are passed to each function in the stack trace<br>kc : Displays a clean stack trace. Each display line includes only the module name and the function name</p><p>.ecxr : displays the context record that is associated with the current exception<br>~ :  查看系统当前线程，使用<del>*s命令切换线程，如需要切换到8号线程，可以使用命令：</del>8s</p><h1 id="Learn-more"><a href="#Learn-more" class="headerlink" title="Learn more"></a>Learn more</h1><p>Windbg使用简明指南 <a href="https://www.cnblogs.com/daoyuly/p/3570037.html" target="_blank" rel="noopener">https://www.cnblogs.com/daoyuly/p/3570037.html</a> </p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;What-is-windbg&quot;&gt;&lt;a href=&quot;#What-is-windbg&quot; class=&quot;headerlink&quot; title=&quot;What is windbg?&quot;&gt;&lt;/a&gt;What is windbg?&lt;/h1&gt;&lt;p&gt;windbg (formally nam
+      
+    
+    </summary>
+    
+    
+    
+      <category term="windbg usage Windows debug tool" scheme="https://dbaspider.github.io/tags/windbg-usage-Windows-debug-tool/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Android Studio Gradle 构建失败：内存不足</title>
     <link href="https://dbaspider.github.io/2021/06/20/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5%EF%BC%9A%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3/"/>
     <id>https://dbaspider.github.io/2021/06/20/Android-Studio-Gradle-%E6%9E%84%E5%BB%BA%E5%A4%B1%E8%B4%A5%EF%BC%9A%E5%86%85%E5%AD%98%E4%B8%8D%E8%B6%B3/</id>
     <published>2021-06-19T16:01:36.000Z</published>
-    <updated>2021-06-19T16:07:08.230Z</updated>
+    <updated>2021-06-19T16:16:30.676Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="Android-Studio-Gradle-Build-failed-with-following-message-in-the-log"><a href="#Android-Studio-Gradle-Build-failed-with-following-message-in-the-log" class="headerlink" title="Android Studio Gradle Build failed with following message in the log:"></a>Android Studio Gradle Build failed with following message in the log:</h1><p> …<br>      at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.lambda$run$0(DefaultPlanExecutor.java:127)<br>      at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:191)<br>      at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.executeNextNode(DefaultPlanExecutor.java:182)<br>      at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:124)<br>      at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)<br>      at org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:48)<br>      at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)<br>      at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)<br>      at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:56)<br>      at java.lang.Thread.run(Thread.java:748)<br>  Caused by: java.lang.OutOfMemoryError: Metaspace</p><ul><li><p>Try:<br>Run with –stacktrace option to get the stack trace. Run with –info or –debug option to get more log output. Run with –scan to get full insights.</p></li><li><p>Get more help at <a href="https://help.gradle.org" target="_blank" rel="noopener">https://help.gradle.org</a></p></li></ul><p>BUILD FAILED in 3m 1s</p><p>FAILURE: Build failed with an exception.</p><ul><li><p>What went wrong:<br>Metaspace</p></li><li><p>Try:<br>Run with –stacktrace option to get the stack trace. Run with –info or –debug option to get more log output. Run with –scan to get full insights.</p></li><li><p>Get more help at <a href="https://help.gradle.org" target="_blank" rel="noopener">https://help.gradle.org</a></p></li></ul><p>BUILD FAILED in 3m 1s</p><h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>Check the jvmargs parameter in file gradle.properties (project root dir):</p><p>#The setting is particularly useful for tweaking memory settings.<br>org.gradle.jvmargs=-Xmx1536m</p><p>You need add the org.gradle.jvmargs line or modify its value to be more larger than current.</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="Android-Studio-Gradle-Build-failed-with-following-message-in-the-log"><a href="#Android-Studio-Gradle-Build-failed-with-following-message-in-the-log" class="headerlink" title="Android Studio Gradle Build failed with following message in the log:"></a>Android Studio Gradle Build failed with following message in the log:</h1><blockquote><p>Task :AndroidBootstrap:extractDebugAnnotations<br>Task :AndroidBootstrap:mergeDebugGeneratedProguardFiles UP-TO-DATE<br>Task :AndroidBootstrap:mergeDebugConsumerProguardFiles UP-TO-DATE<br>Task :AndroidBootstrap:syncDebugLibJars<br>Task :AndroidBootstrap:bundleDebugAar<br>Task :AndroidBootstrap:compileDebugSources<br>Task :AndroidBootstrap:assembleDebug<br>Task :AndroidBootstrap:parseReleaseLocalResources<br>Task :AndroidBootstrap:writeReleaseAarMetadata<br>Task :AndroidBootstrap:verifyReleaseResources<br>Task :AndroidBootstrap:bundleLibResDebug NO-SOURCE<br>Task :AndroidBootstrap:generateReleaseRFile<br>Daemon will be stopped at the end of the build after running out of JVM memory<br>Task :AndroidBootstrap:bundleLibRuntimeToJarDebug<br>Task :AndroidBootstrap:compileReleaseJavaWithJavac </p></blockquote><p>…<br>      at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.lambda$run$0(DefaultPlanExecutor.java:127)<br>      at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.execute(DefaultPlanExecutor.java:191)<br>      at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.executeNextNode(DefaultPlanExecutor.java:182)<br>      at org.gradle.execution.plan.DefaultPlanExecutor$ExecutorWorker.run(DefaultPlanExecutor.java:124)<br>      at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)<br>      at org.gradle.internal.concurrent.ManagedExecutorImpl$1.run(ManagedExecutorImpl.java:48)<br>      at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)<br>      at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)<br>      at org.gradle.internal.concurrent.ThreadFactoryImpl$ManagedThreadRunnable.run(ThreadFactoryImpl.java:56)<br>      at java.lang.Thread.run(Thread.java:748)<br>  Caused by: java.lang.OutOfMemoryError: Metaspace</p><ul><li><p>Try:<br>Run with –stacktrace option to get the stack trace. Run with –info or –debug option to get more log output. Run with –scan to get full insights.</p></li><li><p>Get more help at <a href="https://help.gradle.org" target="_blank" rel="noopener">https://help.gradle.org</a></p></li></ul><p>BUILD FAILED in 3m 1s</p><p>FAILURE: Build failed with an exception.</p><ul><li><p>What went wrong:<br>Metaspace</p></li><li><p>Try:<br>Run with –stacktrace option to get the stack trace. Run with –info or –debug option to get more log output. Run with –scan to get full insights.</p></li><li><p>Get more help at <a href="https://help.gradle.org" target="_blank" rel="noopener">https://help.gradle.org</a></p></li></ul><p>BUILD FAILED in 3m 1s</p><h1 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h1><p>Check the jvmargs parameter in file gradle.properties (project root dir):</p><p>#The setting is particularly useful for tweaking memory settings.<br>org.gradle.jvmargs=-Xmx1536m</p><p>You need add the org.gradle.jvmargs line or modify its value to be more larger than current.</p>]]></content>
     
     <summary type="html">
     
@@ -421,53 +469,6 @@
       
       
         &lt;h2 id=&quot;1、安装Node-js&quot;&gt;&lt;a href=&quot;#1、安装Node-js&quot; class=&quot;headerlink&quot; title=&quot;1、安装Node.js&quot;&gt;&lt;/a&gt;1、安装Node.js&lt;/h2&gt;&lt;p&gt;选择一个稳定版本，比如 node-v12.15.0-x64.msi，
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Hexo系列-1: 介绍</title>
-    <link href="https://dbaspider.github.io/2020/02/09/Hexo%E7%B3%BB%E5%88%97-1-%E4%BB%8B%E7%BB%8D/"/>
-    <id>https://dbaspider.github.io/2020/02/09/Hexo%E7%B3%BB%E5%88%97-1-%E4%BB%8B%E7%BB%8D/</id>
-    <published>2020-02-08T16:21:46.000Z</published>
-    <updated>2020-02-08T16:25:19.262Z</updated>
-    
-    <content type="html"><![CDATA[<p>Hexo是一个快速、简洁且高效的博客框架，基于Node.js开发。生成的blog页面也是静态的，非常适合于github这种无法后台动态渲染纯静态资源页面的托管网站。具有下面几个特点：</p><h2 id="超快速度"><a href="#超快速度" class="headerlink" title="超快速度"></a>超快速度</h2><p>Node.js 所带来的超快生成速度，让上百个页面在几秒内瞬间完成渲染。</p><h2 id="支持-Markdown"><a href="#支持-Markdown" class="headerlink" title="支持 Markdown"></a>支持 Markdown</h2><p>Hexo 支持 GitHub Flavored Markdown 的所有功能，甚至可以整合 Octopress 的大多数插件。</p><h2 id="一键部署"><a href="#一键部署" class="headerlink" title="一键部署"></a>一键部署</h2><p>只需一条指令即可部署到 GitHub Pages, Heroku 或其他平台。</p><h2 id="插件和可扩展性"><a href="#插件和可扩展性" class="headerlink" title="插件和可扩展性"></a>插件和可扩展性</h2><p>强大的 API 带来无限的可能，与数种模板引擎（EJS，Pug，Nunjucks）和工具（Babel，PostCSS，Less/Sass）轻易集成</p><h2 id="丰富的theme资源"><a href="#丰富的theme资源" class="headerlink" title="丰富的theme资源"></a>丰富的theme资源</h2><p>众多Hexo的使用者和开发者已经创作了几百款主题，必有一款适合你。不满意的话，你可以使用任何兼容的模板引擎创建自己的主题。</p><p>安装准备：<br>1、Node.js:<br><a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">https://nodejs.org/en/download/</a></p><p>2、Git 工具:<br><a href="https://git-scm.com/download/win" target="_blank" rel="noopener">https://git-scm.com/download/win</a></p><p>3、GitHub 注册账号:<br><a href="https://github.com/" target="_blank" rel="noopener">https://github.com/</a></p><p>下一篇介绍安装和配置~</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;Hexo是一个快速、简洁且高效的博客框架，基于Node.js开发。生成的blog页面也是静态的，非常适合于github这种无法后台动态渲染纯静态资源页面的托管网站。具有下面几个特点：&lt;/p&gt;
-&lt;h2 id=&quot;超快速度&quot;&gt;&lt;a href=&quot;#超快速度&quot; class=&quot;head
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
-  
-  <entry>
-    <title>解决git pull push每次都需要输入密码问题</title>
-    <link href="https://dbaspider.github.io/2020/02/06/%E8%A7%A3%E5%86%B3git-pull-push%E6%AF%8F%E6%AC%A1%E9%83%BD%E9%9C%80%E8%A6%81%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81%E9%97%AE%E9%A2%98/"/>
-    <id>https://dbaspider.github.io/2020/02/06/%E8%A7%A3%E5%86%B3git-pull-push%E6%AF%8F%E6%AC%A1%E9%83%BD%E9%9C%80%E8%A6%81%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81%E9%97%AE%E9%A2%98/</id>
-    <published>2020-02-06T14:49:33.000Z</published>
-    <updated>2020-02-06T14:54:57.726Z</updated>
-    
-    <content type="html"><![CDATA[<p>如果git clone的下载代码的时候是连接的https://而不是git@git (ssh)的形式，当操作git pull/push到远程的时候，总是提示输入账号和密码才能操作成功，频繁的输入账号和密码会很麻烦。</p><p>解决办法：</p><p>git bash进入你的项目目录，输入：</p><p>git config –global credential.helper store</p><p>然后会在本地生成一个文本，上边记录你的账号和密码。当然这些你可以不用关心。</p><p>然后你使用上述的命令配置好之后，再操作一次git pull，然后它会提示你输入账号密码，这一次之后就不需要再次输入密码了。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;如果git clone的下载代码的时候是连接的https://而不是git@git (ssh)的形式，当操作git pull/push到远程的时候，总是提示输入账号和密码才能操作成功，频繁的输入账号和密码会很麻烦。&lt;/p&gt;
-&lt;p&gt;解决办法：&lt;/p&gt;
-&lt;p&gt;git bash进
       
     
     </summary>
